@@ -37,14 +37,14 @@ where:
 - $\rho$ is the air density (kg/m^3) -> Assume constant at $1.293 kg/m^3$
 
 #### Parent Selection
-We will choose two parents. Both as chromosome maximizing the fitness function among 5 randomly selected chromosomes.
+We will choose two parents. Both as chromosome maximizing the fitness function among 10 randomly selected chromosomes.
 Randomness might make sense because for example of different conditions for the plane (meaning, the chromosome maximizing the fitness function might not maximize it in all conditions). 
 
 Selecting one parent will look like this:
 
 ```java
 Chromosome best = null;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 10; i++) {
         Chromosome individual = individuals[random.nextInt(individuals.length)];
         if (best == null || individual.getFitness() > best.getFitness()) {
             best = individual;
@@ -54,10 +54,52 @@ return best;
 ```
 
 #### Generating Children
-We generate children as follows. To optimize over all possible conditions not taken into account by the fitness function we will compute the average of respective values in the chromosome and replace the worst chromosome in the population.
+We generate children as follows. To optimize but also to keep randomness in the process we _randomly_ mix the genes of the two parents. 
 
+```java
+double[] childGenes = new double[genes.length];
+for (int i = 0; i < childGenes.length; i++) {
+    childGenes[i] = random.nextBoolean() ?  this.getGenes()[i] : other.getGenes()[i];
+}
+return new Chromosome(childGenes);
+```
 #### Stopping Criteria
 We will pre-define the number of generations we want to optimize over and abort after achieving this number.
+
+#### Sample Results
+Following result was obtained by having `POPULATION_SIZE = 1555` and stopping criteria constant `MAX_GENERATIONS = 500`.
+```
+Generation: 1
+Best fitness: 3.70378024707938E8
+Generation: 2
+Best fitness: 3.70378024707938E8
+Generation: 3
+Best fitness: 4.0850255369977826E8
+...
+Generation: 7
+Best fitness: 4.0850255369977826E8
+Generation: 8
+Best fitness: 4.0850255369977826E8
+Generation: 9
+Best fitness: 5.140492441976959E8
+Generation: 10
+Best fitness: 5.140492441976959E8
+...
+...
+Generation: 325
+Best fitness: 5.612950859520115E8
+...
+...
+Generation: 497
+Best fitness: 5.65678925461215E8
+Generation: 498
+Best fitness: 5.65678925461215E8
+Generation: 499
+Best fitness: 5.65678925461215E8
+Generation: 500
+Best fitness: 5.65678925461215E8
+```
+Result is returning the maximized Lift $L$. At this point it would obviously easy to extract the genes which have maximized this property.
 
 ### 3. Designing a portfolio of investments (DPI)
 Designing a portfolio of investments that maximizes returns while minimizing risk. (Rene)
