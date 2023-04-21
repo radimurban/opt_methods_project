@@ -4,7 +4,7 @@ import java.util.Random;
 public class GeneticAlgorithm {
     
     private static final int POPULATION_SIZE = 10;
-    private static final int MAX_GENERATIONS = 100;
+    private static final int MAX_GENERATIONS = 1000;
     
     public static void main(String[] args) {
         
@@ -70,12 +70,11 @@ class Chromosome {
     public Chromosome crossover(Chromosome other) {
         int[] childGenes = new int[genes.length];
         int midpoint = random.nextInt(genes.length);
-        for (int i = 0; i < genes.length; i++) {
-            if (i < midpoint) {
-                childGenes[i] = genes[i];
-            } else {
-                childGenes[i] = other.genes[i];
-            }
+        for (int i = 0; i < midpoint; i++) {
+            childGenes[i] = genes[i];
+        }
+        for (int i = midpoint; i<genes.length; i++) {
+        	childGenes[i] = other.genes[i];
         }
         return new Chromosome(childGenes);
     }
@@ -111,7 +110,6 @@ class Population {
     }
     
     private double evaluate(Chromosome individual) {
-        // Fitness function goes here
         // This implementation simply returns the sum of the genes
         int[] genes = individual.getGenes();
         double sum = 0;
@@ -123,6 +121,8 @@ class Population {
     
     public Chromosome select() {
         // Tournament selection
+    	
+    	// Choose five random individuals and choose the best one of them
         Chromosome best = null;
         for (int i = 0; i < 5; i++) {
             Chromosome individual = individuals[random.nextInt(individuals.length)];

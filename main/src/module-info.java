@@ -6,4 +6,5 @@
  *
  */
 module Optimization {
+	requires jdk.compiler;
 }

@@ -148,16 +148,16 @@
   },
   "active": "ed9dae03b39f116d",
   "lastOpenFiles": [
+    "main/src/neviem/problem - radim/GeneticAlgorithm.java",
+    "main/src/neviem/problem - rene/GeneticAlgorithm.java",
     "main/src/neviem/problem - zdenek/MicroGeneticAlgorithm.java",
-    "main/src/neviem/problem - zdenek",
-    "main/src/neviem/problem - rene",
-    "main/src/neviem/problem - radim",
-    "main/src/problem - rene",
-    "main/src/problem - reen",
-    "main/src/problem - zdenek copy",
-    "main/src/problem - radim",
-    "main/src/problem - zdenek",
-    "main/src/untitled folder",
-    "untitled folder"
+    "main/src/neviem/problem - zdenek/GeneticAlgorithm.java",
+    "main/bin/neviem/MicroGeneticAlgorithm.class",
+    "main/bin/neviem/MicroGeneticAlgorithm$ResourceAllocation.class",
+    "main/src/neviem/MicroGeneticAlgorithm.java",
+    "main/bin/neviem/problem - zdenek/MicroGeneticAlgorithm.class",
+    "main/bin/neviem/problem - zdenek/MicroGeneticAlgorithm$ResourceAllocation.class",
+    "main/bin/neviem/problem - zdenek",
+    "Optimization/bin"
   ]
 }
