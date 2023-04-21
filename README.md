@@ -1,11 +1,13 @@
 # opt_methods_project
 
-# Genetic Algorithm
+For our project, we will implement generic GA and apply it to 3 various problems.
 
-Genetic Algorithm (GA): Core Ideas
-Search domain $\mathrm{D}_{\mathrm{s}} = \\{ \boldsymbol{p} \mid \boldsymbol{p} =$ bit string of length $L \\} $ 
+## Genetic Algorithm
 
-Fitness function 
+Assume search domain $\mathrm{D}_{\mathrm{s}} = \\{ \boldsymbol{p} \mid \boldsymbol{p} =$ bit string of length $L \\}$ representing the population.
+We will generate bitstrings as representation of the population randomly. 
+
+Fitness function evaluates strength for samples of the population (the higher the better)
 
 $$
 \begin{align}
@@ -16,7 +18,6 @@ F:
 \end{align}
 $$
 
-We will generate bitstrings as representation of the population randomly. 
 
 ## Algorithm Description
 
@@ -25,7 +26,7 @@ We will generate bitstrings as representation of the population randomly.
 2. generate children using mutation and crossover simplicity: again $N$ individuals
 3. define and check stopping criteria. If not met: goto 2 .
 
-## Problem Ideas:
+## Problems for GA to be applied on:
 1. Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. (Zdenek)
 2. Optimizing the design of an aircraft wing to maximize lift and minimize drag. (Radim)
 3. Designing a portfolio of investments that maximizes returns while minimizing risk. (Rene)
