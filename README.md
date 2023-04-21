@@ -3,19 +3,20 @@
 # Genetic Algorithm
 
 Genetic Algorithm (GA): Core Ideas
-Search domain $\mathrm{D}_{\mathrm{s}}=\{\boldsymbol{p} \mid \boldsymbol{p}=$ bit string of length $L\}$ 
+Search domain $\mathrm{D}_{\mathrm{s}} = \\{ \boldsymbol{p} \mid \boldsymbol{p} =$ bit string of length $L \\} $ 
+
 Fitness function 
 
 $$
 \begin{align}
-F: & p \rightarrow \mathbb{R} \quad 
-\\ & p \mapsto \Sigma_{i=0}^{n-1}  p_i
-\quad & \text{where } n=|p| \quad\forall \boldsymbol{p} \in \mathrm{D}_{\text {s }}
+F: 
+& p \rightarrow \mathbb{R} \\ 
+& p \mapsto \Sigma_{i=0}^{n-1}  p_i
+& \text{where } n= \text{length of the bitstring} \quad \forall \boldsymbol{p} \in \mathrm{D}_{\text {s }}
 \end{align}
 $$
 
-coding real problem to bit strings is difficult! Exist invalid $\boldsymbol{p}$ ? not discussed here! (all $\boldsymbol{p}$ are considered as valid)
-evaluation of $F(\boldsymbol{p})$ also excluded but assumed to be available
+We will generate bitstrings as representation of the population randomly. 
 
 ## Algorithm Description
 
