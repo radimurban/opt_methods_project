@@ -19,3 +19,7 @@ evaluation of $F(\boldsymbol{p})$ also excluded but assumed to be available
 2. generate children using mutation and crossover simplicity: again $N$ individuals
 3. define and check stopping criteria. If not met: goto 2 .
 
+Ideas:
+1. Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. (Zdenek)
+2. Optimizing the design of an aircraft wing to maximize lift and minimize drag. (Radim)
+3. Designing a portfolio of investments that maximizes returns while minimizing risk. (Rene)
