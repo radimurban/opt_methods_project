@@ -34,9 +34,12 @@ $$
 4. define and check stopping criteria. If not met: goto 2 .
 
 ## Problems for GA to be applied on:
-1. Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. (Zdenek)
-2. Optimizing the design of an aircraft wing to maximize lift and minimize drag. (Radim)
-3. Designing a portfolio of investments that maximizes returns while minimizing risk. (Rene)
+### 1. Optimal allocation of resources
+Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. (Zdenek)
+### 2. Optimizing the design of an aircraft wing
+Optimizing the design of an aircraft wing to maximize lift and minimize drag. (Radim)
+### 3. Designing a portfolio of investments 
+Designing a portfolio of investments that maximizes returns while minimizing risk. (Rene)
 
 |  | Problem 1 | Problem 2 | Problem 3 |
 |--|---|--|--|
