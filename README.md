@@ -22,9 +22,16 @@ $$
 ## Algorithm Description
 
 1. create random population of $N$ individuals $\boldsymbol{p}_n$ (initialization)
-1. select parents from population
-2. generate children using mutation and crossover simplicity: again $N$ individuals
-3. define and check stopping criteria. If not met: goto 2 .
+2. select parents from population: Take $M \leq N$ individuals, prefer fitter individuals, but not too strict include some randomness!
+    - roulette-wheel selection (positive fitness values assumed)
+    - let 
+      - $F_n:=F ( \boldsymbol{p}_n )$
+      - $\Delta_n:= ] \Sigma_{i=1}^{n-1} F_i \Sigma_{i=1}^n F_i ]$, $S:=\Sigma_{i=1}^N F_i$
+    - select $M$ random numbers $r_m \in[0, S]$ and take $\boldsymbol{p}_n$ with $r_m \in \Delta_n$
+    - tournament selection or truncation selection: take the best
+    - see also https://en.wikipedia.org/wiki/Selection_(genetic_algorithm)
+3. generate children using mutation and crossover simplicity: again $N$ individuals
+4. define and check stopping criteria. If not met: goto 2 .
 
 ## Problems for GA to be applied on:
 1. Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. (Zdenek)
