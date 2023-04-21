@@ -37,3 +37,11 @@ $$
 1. Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. (Zdenek)
 2. Optimizing the design of an aircraft wing to maximize lift and minimize drag. (Radim)
 3. Designing a portfolio of investments that maximizes returns while minimizing risk. (Rene)
+
+|  | Problem 1 | Problem 2 | Problem 3 |
+|--|---|--|--|
+|Population|||
+|Fitness func.||||
+|Parent Selection||||
+|Generating Children (Mutation/Crossover?)||||
+|Stopping Criteria||||
