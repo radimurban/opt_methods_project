@@ -1,4 +1,4 @@
-package neviem.problem_zdenek;
+package oga;
 
 import java.util.ArrayList;
 import java.util.Arrays;

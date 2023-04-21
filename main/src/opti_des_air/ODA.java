@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class ODA {
     
-    private static final int POPULATION_SIZE = 1555;
-    private static final int MAX_GENERATIONS = 500;
+    private static final int POPULATION_SIZE = 500;
+    private static final int MAX_GENERATIONS = 50000;
     
     public static void main(String[] args) {
         
@@ -69,29 +69,6 @@ class Chromosome {
     
     public void setFitness(double fitness) {
         this.fitness = fitness;
-    }
-    
-    static double BinaryStringToDouble(String s)
-    {
-
-      double sign = 1;
-      int index = 1;
-      if(s.charAt(0) == '-')
-        sign = -1;
-      else if(s.charAt(0) != '+')
-        index = 0;
-
-      double d = 0;
-      for(int i = index; i < s.length(); i++)
-      {
-        char c = s.charAt(i);
-        d *= 2;
-        if(c == '1')
-          d += 1;
-      }
-
-      return sign * d;
-    
     }
     
     public Chromosome crossover(Chromosome other) {

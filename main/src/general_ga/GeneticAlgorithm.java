@@ -1,4 +1,4 @@
-package neviem ;
+package general_ga;
 import java.util.Random;
 
 public class GeneticAlgorithm {
