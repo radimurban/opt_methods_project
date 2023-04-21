@@ -16,7 +16,7 @@ Finding the optimal allocation of resources in a supply chain to minimize costs 
 Optimizing the design of an aircraft to maximize lift. (Radim)
 
 #### Population
-Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = V, S, \alpha , e, AR$ of design variables that define a part of an aircraft wing. The three dimensions correspond to
+Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = V, S, \alpha , e, AR$ of design variables that define a part of an aircraft. The dimensions correspond to:
 
 - $V$ is the speed of the aircraft ($m/s$)  $\in \[20-100\]$
 - $S$ is the wing area ($m^2$)  $\in \[60-200\]$
