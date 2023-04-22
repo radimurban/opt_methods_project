@@ -18,11 +18,11 @@ Optimizing the design of an aircraft to maximize lift. (Radim)
 #### Population
 Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = V, S, \alpha , e, AR$ of design variables that define a part of an aircraft. The dimensions correspond to:
 
-- $V$ is the speed of the aircraft ($m/s$)  $\in \[20-100\]$
-- $S$ is the wing area ($m^2$)  $\in \[60-200\]$
-- $\alpha$ is the angle of attack  $\in \[0-90\]$
-- $e$ is the Oswald efficiency factor  $\in \[0-1\]$
-- $AR$ is the wing aspect ratio  $\in \[5-15\]$
+- $V$ is the speed of the aircraft ($m/s$)  $\in \[20; 350\]$
+- $S$ is the wing area ($m^2$)  $\in \[60; 200\]$
+- $\alpha$ is the angle of attack  $\in \[0; 1.57079633\]$
+- $e$ is the Oswald efficiency factor  $\in \[0; 1\]$
+- $AR$ is the wing aspect ratio  $\in \[5; 15\]$
 
 #### Fitness function
 Each chromosome is evaluated by a fitness function that computes its performanceand assigns a fitness score. In this case we want to compute the maximum lift.
