@@ -67,39 +67,48 @@ return new Chromosome(childGenes);
 We will pre-define the number of generations we want to optimize over and abort after achieving this number.
 
 #### Sample Results
-Following result was obtained by having `POPULATION_SIZE = 1555` and stopping criteria constant `MAX_GENERATIONS = 500`.
+Following result was obtained by having `POPULATION_SIZE = 150` and stopping criteria constant `MAX_GENERATIONS = 100`.
 ```
 Generation: 1
-Best fitness: 3.70378024707938E8
+Best fitness: 1.8135317035889294E7
 Generation: 2
-Best fitness: 3.70378024707938E8
-Generation: 3
-Best fitness: 4.0850255369977826E8
+Best fitness: 2.1045501991996493E7
 ...
 Generation: 7
-Best fitness: 4.0850255369977826E8
+Best fitness: 2.1045501991996493E7
 Generation: 8
-Best fitness: 4.0850255369977826E8
+Best fitness: 2.154905052924889E7
 Generation: 9
-Best fitness: 5.140492441976959E8
+Best fitness: 2.154905052924889E7
 Generation: 10
-Best fitness: 5.140492441976959E8
+Best fitness: 2.154905052924889E7
 ...
 ...
-Generation: 325
-Best fitness: 5.612950859520115E8
+...
+Generation: 62
+Best fitness: 4.3653154580234885E7
+Generation: 63
+Best fitness: 4.3653154580234885E7
 ...
 ...
-Generation: 497
-Best fitness: 5.65678925461215E8
-Generation: 498
-Best fitness: 5.65678925461215E8
-Generation: 499
-Best fitness: 5.65678925461215E8
-Generation: 500
-Best fitness: 5.65678925461215E8
+Generation: 94
+Best fitness: 4.552910518702196E7
+Generation: 95
+Best fitness: 4.552910518702196E7
+Generation: 96
+Best fitness: 4.552910518702196E7
+Generation: 97
+Best fitness: 4.552910518702196E7
+Generation: 98
+Best fitness: 4.552910518702196E7
+Generation: 99
+Best fitness: 4.552910518702196E7
+Generation: 100
+Best fitness: 4.552910518702196E7
+
 ```
 Result is returning the maximized Lift $L$. At this point it would obviously easy to extract the genes which have maximized this property.
+We can reason that the delievered result is somewhat reasonable by realizing that an airplane can weigh up to $600.000 kg$ corresponding rouhgly to needed lift of at least $6MN$. At generation 100, the best configuration has a lift force of roughly $45 MN$. That means there is an order of magnitude difference to the enforced minimum and in real life, ther would be many factors further limiting the lift force.
 
 ### 3. Designing a portfolio of investments (DPI)
 Designing a portfolio of investments that maximizes returns while minimizing risk. (Rene)
