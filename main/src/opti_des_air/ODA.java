@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class ODA {
     
-    private static final int POPULATION_SIZE = 500;
-    private static final int MAX_GENERATIONS = 50000;
+    private static final int POPULATION_SIZE = 150;
+    private static final int MAX_GENERATIONS = 100;
     
     public static void main(String[] args) {
         
@@ -90,8 +90,8 @@ class Population {
     public Chromosome[] individuals;
     private Random random;
     
-    private double random(int min, int max) {
-    	return Math.random() * (max - min + 1) + min;
+    private double random(double min, double max) {
+    	return Math.random() * (max - min) + min;
     }
     
     public Population(int size) {
@@ -100,16 +100,12 @@ class Population {
         for (int i = 0; i < size; i++) {
             double[] genes = new double[5];
             
-            genes[0] = random(20,100);
-            
+            genes[0] = random(50,350);
             genes[1] = random(60,200);
-            
-            genes[2] = random(0,90);
-            
-            genes[3] = random(0,1);
-            
+            genes[2] = random(0.1,1.57);
+            genes[3] = random(0.1,1);
             genes[4] = random(5,15);
-            		
+            
             
             individuals[i] = new Chromosome(genes);
         }
@@ -136,14 +132,12 @@ class Population {
     	double ar = genes[4];
     	
     	double rho = 1.293;
-    	
-    	double fitness = 0.5 * rho * (v*v) * s * ((2*Math.PI*alpha)/(1 + (Math.PI*e*ar)));
+    	double cl = ((2*Math.PI*alpha)/(1 + (Math.PI*e*ar)));
+    	double fitness = .5 * rho * (v*v) * s * cl;
         return fitness;
     }
     
     public Chromosome select() {
-        // Tournament selection
-    	
     	// Choose five random individuals and choose the best one of them
         Chromosome best = null;
         for (int i = 0; i < 10; i++) {
