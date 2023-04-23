@@ -59,15 +59,15 @@ public class MicroGeneticAlgorithm {
 
         // Evolution loop
         for (int generation = 0; generation < MAX_GENERATIONS; generation++) {
-            // Evaluate the fitness of each individual in the population
-            for (ResourceAllocation individual : population) {
-                individual.fitness = 1 / (individual.getCost() + individual.getEfficiency());
+            // Evaluate the fitness of each res in the population
+            for (ResourceAllocation res : population) {
+                res.fitness = 1 / (res.getCost() + res.getEfficiency());
             }
 
             // Sort the population by fitness in descending order
             Collections.sort(population, Comparator.comparingDouble(ResourceAllocation::getFitness).reversed());
 
-            // Select the elite individuals for the next generation
+            // Select the elite ress for the next generation
             int eliteSize = (int) (POPULATION_SIZE * ELITISM_RATE);
             ArrayList<ResourceAllocation> newPopulation = new ArrayList<>();
             for (int i = 0; i < eliteSize; i++) {
@@ -92,10 +92,10 @@ public class MicroGeneticAlgorithm {
         }
 
         // Print the best solution found
-        ResourceAllocation bestIndividual = population.get(0);
-        System.out.println("Best allocation: " + Arrays.toString(bestIndividual.getResources()));
-        System.out.println("Cost: " + bestIndividual.getCost());
-        System.out.println("Efficiency: " + bestIndividual.getEfficiency());
+        ResourceAllocation bestres = population.get(0);
+        System.out.println("Best allocation: " + Arrays.toString(bestres.getResources()));
+        System.out.println("Cost: " + bestres.getCost());
+        System.out.println("Efficiency: " + bestres.getEfficiency());
     }
 
     private static ResourceAllocation selectParent(ArrayList<ResourceAllocation> population) {
@@ -126,9 +126,9 @@ public class MicroGeneticAlgorithm {
         return new ResourceAllocation(childResources);
     }
 
-    private static void mutate(ResourceAllocation individual) {
+    private static void mutate(ResourceAllocation res) {
         // Perform mutation by randomly changing one resource allocation
         int index = RANDOM.nextInt(3);
-        individual.getResources()[index] = RANDOM.nextInt(RESOURCE_LIMIT);
+        res.getResources()[index] = RANDOM.nextInt(RESOURCE_LIMIT);
     }
 }
