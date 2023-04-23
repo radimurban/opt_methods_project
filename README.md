@@ -110,8 +110,15 @@ Best fitness: 4.552910518702196E7
 Result is returning the maximized Lift $L$. At this point it would obviously easy to extract the genes which have maximized this property.
 We can reason that the delievered result is somewhat reasonable by realizing that an airplane can weigh up to $600.000 kg$ corresponding rouhgly to needed lift of at least $6MN$. At generation 100, the best configuration has a lift force of roughly $45 MN$. That means there is an order of magnitude difference to the enforced minimum and in real life, ther would be many factors further limiting the lift force.
 
-### 3. Designing a portfolio of investments (DPI)
-Designing a portfolio of investments that maximizes returns while minimizing risk. (Rene)
+### 3. Optimizing the power of an engine
+Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximalpower output of an engine. (Rene)
+#### Population
+Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = MEP, stroke, bore , revs$ of design variables that define a part of an aircraft. The dimensions correspond to:
+
+- $MEP$ is a measure of the average pressure exerted by the gases in the combustion chamber of an engine during the power stroke. ($psi$)  $\in \[20; 350\]$
+- $Stroke length$ is the distance that the piston travels in the cylinder between the top dead center (TDC) and the bottom dead center (BDC) positions. ($ft$)  $\in \[60; 200\]$
+- $Bore$ is the diameter of the cylinder in which the piston moves.($in$)  $\in \[0; 1.57079633\]$
+- $revs$ refer to the number of times an engine's crankshaft rotates in a given period of time. ($rpm$)  $\in \[0; 1\]$
 
 
 
