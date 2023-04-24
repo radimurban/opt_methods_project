@@ -35,6 +35,7 @@ with useful parts. The fitness is computed as follows:
 $$ (profit / res.getCost()) * (Arrays.stream(res.getResources()).sum() - penalty). $$
 
 '''java
+
 public double[] evalProfit(Resource res) {
     	Arrays.sort(products, Comparator.comparingDouble(Product::getPrice).reversed());
     	double profit = 0.0;
@@ -86,7 +87,8 @@ public Resource select() {
 We use two-point crossover. It is also neccessary to keep track of the new cost and the number of resources. Upon creating the child we check
 in a do-while loop that the sum of the resources is under the limit.
 
-'''jave
+'''java
+
 public Resource crossover(Resource parent1, Resource parent2) {
         int[] childResources = new int[n];
         int crossoverPoint1 = random.nextInt(n);
