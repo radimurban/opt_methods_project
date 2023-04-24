@@ -40,9 +40,9 @@ public class ResourceAllocation {
 			Resource bestres = man.getResource()[0];
 			System.out.println("Best allocation: " + Arrays.toString(bestres.getResources()));
 			System.out.println("Cost: " + bestres.getCost());
-			System.out.println("Profit: " + man.evalProfit(bestres));
+			System.out.println("Profit: " + man.evalProfit(bestres)[0]);
+			System.out.println("Penalty: " + man.evalProfit(bestres)[1]);
 			System.out.println("Fitness: " + bestres.getFitness());
-			// System.out.println("Best fitness: " + man.getBestFitness());
 
 			
             // Select the elite resources for the next generation
@@ -80,7 +80,8 @@ public class ResourceAllocation {
 		Resource bestres = man.getResource()[0];
 		System.out.println("Best allocation: " + Arrays.toString(bestres.getResources()));
 		System.out.println("Cost: " + bestres.getCost());
-		System.out.println("Profit: " + man.evalProfit(bestres));
+		System.out.println("Profit: " + man.evalProfit(bestres)[0]);
+		System.out.println("Penalty: " + man.evalProfit(bestres)[1]);
 		System.out.println("Fitness: " + bestres.getFitness());
 
 	}
@@ -102,11 +103,20 @@ class Manager {
 		this.limit = limit;
 	}
 	
+	// Get and set methods
+	public Resource[] getResource() {
+		return resources;
+	}
+	
+	public void setResource(Resource[] resources) {
+		this.resources = resources;
+	}
+	
 	// Create num Resources
 	public void populateR(int num) {
 		Resource[] population = new Resource[num];
 		for (int i = 0; i < num; i++) {
-			int runningSum = 50;
+			int runningSum = 0;
 			int resources[] = new int[n];
 			double varCost = 0.0;
 			
@@ -132,6 +142,7 @@ class Manager {
 		products = population;
 	}
 	
+	// Evaluate and set the fitness of a resource
 	public void evaluate() {
         for (Resource res : resources) {
             double fitness = evaluate(res);
@@ -139,19 +150,15 @@ class Manager {
         }
     }
 	
-	public Resource[] getResource() {
-		return resources;
-	}
-	
-	public void setResource(Resource[] resources) {
-		this.resources = resources;
-	}
-    
     private double evaluate(Resource res) {
-        return (evalProfit(res) / res.getCost()) * (Arrays.stream(res.getResources()).sum());
+    	double[] arr = evalProfit(res);
+    	double profit = arr[0];
+    	double penalty = arr[1];
+        return (profit / res.getCost()) * (Arrays.stream(res.getResources()).sum() - penalty);
     }
     
-    public double evalProfit(Resource res) {
+    // Helper function - returns the maximum profit we can get from the given resource
+    public double[] evalProfit(Resource res) {
     	Arrays.sort(products, Comparator.comparingDouble(Product::getPrice).reversed());
     	double profit = 0.0;
     	int[] localCopy = Arrays.copyOf(res.getResources(), res.getResources().length);
@@ -163,9 +170,11 @@ class Manager {
     			profit += product.getPrice();
     		}
     	}
-    	return profit;
+    	double penalty = Arrays.stream(localCopy).sum();
+    	return new double[]{profit, penalty};
     }
     
+    // Helper function - returns true if all the neccessary resources for the given product are available
     private boolean isAvailable(int[] needed, int[] available) {
     	assert needed.length == available.length;
     	for (int i = 0; i < available.length; i++) {
@@ -180,25 +189,13 @@ class Manager {
 	// Choose five random resources and choose the best one of them
 	public Resource select() {
         Resource best = null;
-        int end = 5;
-        for (int i = 0; i < end; i++) {
+        for (int i = 0; i < 5; i++) {
             Resource res = resources[random.nextInt(n)];
             if (best == null || res.getFitness() > best.getFitness()) {
                 best = res;
             }
         }
         return best;
-    }
-	
-    
-    public double getBestFitness() {
-        double bestFitness = Double.MIN_VALUE;
-        for (Resource res : resources) {
-            if (res.getFitness() > bestFitness) {
-                bestFitness = res.getFitness();
-            }
-        }
-        return bestFitness;
     }
     
     // Perform crossover using a two-point crossover
@@ -244,7 +241,7 @@ class Resource {
 		this.cost = cost;
 	}
 	
-	// Getter and setter methods
+	// Get and set methods
 	public double getCost() {
 		return cost;
 	}
@@ -276,7 +273,7 @@ class Product {
 		this.price = price;
 	}
 	
-	// Getter and setter methods
+	// Get and set methods
 	public int[] getNeededResources() {
 		return neededResources;
 	}
