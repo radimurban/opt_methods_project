@@ -17,7 +17,7 @@ create a better configuration. With just crossover you only work with the values
 better to have more individuals (more values to choose from).
 
 #### Population
-There are two classes, Resource and Product. Each population contains n resources and m products. A member of the class Resources represents all the resources we can acquire, the total cost of these resources and the fitness score. A product that the company can make is represented by the class Product. Each product has information about the selling price and the resources neccessary to produce it. The price of a product must be at least the cost of the needed resources. Both of these classes are managed by a Manager. There you can find all the functions for the (micro)GA algorithm as well as the number of Resource individuals, the resource limit and the price per resource. 
+There are two classes, Resource and Product. Each population contains n resources and m products. A member of the class Resources represents all the resources we can acquire, the total cost of these resources and the fitness score. A product that the company can make is represented by the class Product. Each product has information about the selling price and the resources necessary to produce it. The price of a product must be at least the cost of the needed resources. Both of these classes are managed by a Manager. There you can find all the functions for the (micro)GA algorithm as well as the number of Resource individuals, the resource limit and the price per resource. 
 
 
 #### Fitness Function
@@ -72,7 +72,7 @@ public Resource select() {
 ```
 
 #### Generating Children
-We use two-point crossover. It is also neccessary to keep track of the new cost and the number of resources. Upon creating the child we check in a do-while loop that the sum of the resources is under the limit.
+We use two-point crossover. It is also necessary to keep track of the new cost and the number of resources. Upon creating the child we check in a do-while loop that the sum of the resources is under the limit.
 
 ```java
 public Resource crossover(Resource parent1, Resource parent2) {

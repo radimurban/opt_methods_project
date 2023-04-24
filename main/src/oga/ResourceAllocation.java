@@ -11,7 +11,7 @@ public class ResourceAllocation {
     private static final int MAX_GENERATIONS = 100;
     private static final int RESOURCE_LIMIT = 100;
     private static final double ELITISM_RATE = 0.2;
-    private static final double MUTATION_RATE = 0.3;
+    private static final double MUTATION_RATE = 0.0; // Only for testing purposes against full GA
     private static final Random RANDOM = new Random();
 
 	public static void main(String[] args) {

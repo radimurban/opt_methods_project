@@ -17,7 +17,7 @@ A practical real-world example of optimizing resource allocation in a supply cha
 To minimize costs and maximize efficiency, the optimal allocation of resources in the supply chain must be determined. In our example we simplify this to determining the optimal number of raw materials to purchase and which products to manufacture from the available resources.
 
 #### Population
-There are two classes, Resource and Product. Each population contains n resources and m products. A member of the class Resources represents all the resources we can acquire, the total cost of these resources and the fitness score. A product that the company can make is represented by the class Product. Each product has information about the selling price and the resources neccessary to produce it. The price of a product must be at least the cost of the needed resources. Both of these classes are managed by a Manager. There you can find all the functions for the (micro)GA algorithm as well as the number of Resource individuals, the resource limit and the price per resource. 
+There are two classes, Resource and Product. Each population contains n resources and m products. A member of the class Resources represents all the resources we can acquire, the total cost of these resources and the fitness score. A product that the company can make is represented by the class Product. Each product has information about the selling price and the resources necessary to produce it. The price of a product must be at least the cost of the needed resources. Both of these classes are managed by a Manager. There you can find all the functions for the (micro)GA algorithm as well as the number of Resource individuals, the resource limit and the price per resource. 
 
 #### Fitness Function
 Each Resource is evaluated by a fitness function that assigns a fitness score. Since we live in a capitalist society, our goal is to maximize the profit while minimizing the cost. We also want to produce as much as possible so we encourage filling up the warehouse with useful parts. The fitness is computed as follows:
@@ -71,7 +71,7 @@ public Resource select() {
 ```
 
 #### Generating Children
-We use two-point crossover. It is also neccessary to keep track of the new cost and the number of resources. Upon creating the child we check in a do-while loop that the sum of the resources is under the limit.
+We use two-point crossover. It is also necessary to keep track of the new cost and the number of resources. Upon creating the child we check in a do-while loop that the sum of the resources is under the limit.
 
 ```java
 public Resource crossover(Resource parent1, Resource parent2) {
