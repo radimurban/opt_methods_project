@@ -34,7 +34,7 @@ with useful parts. The fitness is computed as follows:
 
 $$ (profit / res.getCost()) * (Arrays.stream(res.getResources()).sum() - penalty). $$
 
-'''
+```java
 public double[] evalProfit(Resource res) {
     	Arrays.sort(products, Comparator.comparingDouble(Product::getPrice).reversed());
     	double profit = 0.0;
@@ -60,7 +60,7 @@ public double[] evalProfit(Resource res) {
     	}
     	return true;
     }
-'''
+```
 
 It is the quotient of the profit and the cost. Maximizing the profit or minimizing the cost leads to higher fitness score. Multiplying with the overall
 available resources penalized with the number of unneeded resources.
@@ -69,7 +69,7 @@ available resources penalized with the number of unneeded resources.
 We choose two parents. Both are Resources maximizing the fitness function among 5 randomly selected Resources.
 Selecting one parent will look like this:
 
-'''java
+```java
 public Resource select() {
         Resource best = null;
         for (int i = 0; i < 5; i++) {
@@ -80,13 +80,13 @@ public Resource select() {
         }
         return best;
     }
-'''
+```
 
 #### Generating Children
 We use two-point crossover. It is also neccessary to keep track of the new cost and the number of resources. Upon creating the child we check
 in a do-while loop that the sum of the resources is under the limit.
 
-'''
+```java
 public Resource crossover(Resource parent1, Resource parent2) {
         int[] childResources = new int[n];
         int crossoverPoint1 = random.nextInt(n);
@@ -108,4 +108,4 @@ public Resource crossover(Resource parent1, Resource parent2) {
         
         return new Resource(childResources, varCost);
     }
-'''
+```
