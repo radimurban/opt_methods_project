@@ -1,8 +1,5 @@
 A practical and real-world example of optimizing resource allocation in a supply chain to minimize costs and maximize efficiency could be in the production of a consumer electronics product, such as a smartphone. In this example, the supply chain involves several stages, including the sourcing of raw materials, manufacturing of components, assembly of the final product, and distribution to retailers.
-
-To minimize costs and maximize efficiency, the optimal allocation of resources in the supply chain must be determined. This includes determining the optimal number of raw materials to purchase, the most efficient manufacturing process for each component, the optimal assembly process, and the most cost-effective distribution strategy.
-
-For instance, by optimizing the manufacturing process, the supplier can produce components more efficiently, reducing the time and cost associated with manufacturing. Additionally, by determining the optimal assembly process, the manufacturer can minimize the amount of labor required and reduce assembly time, resulting in a more efficient and cost-effective production process.
+To minimize costs and maximize efficiency, the optimal allocation of resources in the supply chain must be determined. In our example we simplify this to determining the optimal number of raw materials to purchase and which products to manufacture from the available resources.
 
 By optimizing the resource allocation in the supply chain, the overall cost of production can be reduced, allowing for increased profitability and competitive pricing in the marketplace.
 
@@ -20,17 +17,11 @@ create a better configuration. With just crossover you only work with the values
 better to have more individuals (more values to choose from).
 
 #### Population
-There are two classes, Resource and Product. Each population contains n resources and m products. A member of the class Resources represents
-all the resources we can acquire, the total cost of these resources and the fitness score. A product that the company can make
-is represented by the class Product. Each product has information about the selling price and the resources neccessary to produce it. The price of a product
-must be at least the cost of the needed resources. Both of these classes are managed by a Manager. There you can find all the functions for 
-the (micro)GA algorithm as well as the number of Resource individuals, the resource limit and the price per resource. 
+There are two classes, Resource and Product. Each population contains n resources and m products. A member of the class Resources represents all the resources we can acquire, the total cost of these resources and the fitness score. A product that the company can make is represented by the class Product. Each product has information about the selling price and the resources neccessary to produce it. The price of a product must be at least the cost of the needed resources. Both of these classes are managed by a Manager. There you can find all the functions for the (micro)GA algorithm as well as the number of Resource individuals, the resource limit and the price per resource. 
 
 
 #### Fitness Function
-Each Resource is evaluated by a fitness function that assigns a fitness score. Since we live in a capitalist society,
-our goal is to maximize the profit while minimizing the cost. We also want to produce as much as possible so we encourage filling up the warehouse
-with useful parts. The fitness is computed as follows:
+Each Resource is evaluated by a fitness function that assigns a fitness score. Since we live in a capitalist society, our goal is to maximize the profit while minimizing the cost. We also want to produce as much as possible so we encourage filling up the warehouse with useful parts. The fitness is computed as follows:
 
 $$ (profit / res.getCost()) * (Arrays.stream(res.getResources()).sum() - penalty). $$
 
@@ -62,12 +53,10 @@ public double[] evalProfit(Resource res) {
     }
 ```
 
-It is the quotient of the profit and the cost. Maximizing the profit or minimizing the cost leads to higher fitness score. Multiplying with the overall
-available resources penalized with the number of unneeded resources.
+It is the quotient of the profit and the cost. Maximizing the profit or minimizing the cost leads to higher fitness score. Multiplying with the overall available resources penalized with the number of unneeded resources.
 
 #### Parent Selection
-We choose two parents. Both are Resources maximizing the fitness function among 5 randomly selected Resources.
-Selecting one parent will look like this:
+We choose two parents. Both are Resources maximizing the fitness function among 5 randomly selected Resources. Selecting one parent will look like this:
 
 ```java
 public Resource select() {
@@ -83,8 +72,7 @@ public Resource select() {
 ```
 
 #### Generating Children
-We use two-point crossover. It is also neccessary to keep track of the new cost and the number of resources. Upon creating the child we check
-in a do-while loop that the sum of the resources is under the limit.
+We use two-point crossover. It is also neccessary to keep track of the new cost and the number of resources. Upon creating the child we check in a do-while loop that the sum of the resources is under the limit.
 
 ```java
 public Resource crossover(Resource parent1, Resource parent2) {
