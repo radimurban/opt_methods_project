@@ -1,3 +1,5 @@
+## Problem 1: Optimal allocation of resources (OAR)
+
 A practical and real-world example of optimizing resource allocation in a supply chain to minimize costs and maximize efficiency could be in the production of a consumer electronics product, such as a smartphone. In this example, the supply chain involves several stages, including the sourcing of raw materials, manufacturing of components, assembly of the final product, and distribution to retailers.
 To minimize costs and maximize efficiency, the optimal allocation of resources in the supply chain must be determined. In our example we simplify this to determining the optimal number of raw materials to purchase and which products to manufacture from the available resources.
 
