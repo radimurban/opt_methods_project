@@ -4,9 +4,9 @@ Optimizing the design of an aircraft to maximize lift. (Radim)
 ## Population
 Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = V, S, \alpha , e, AR$ of design variables that define a part of an aircraft. The dimensions correspond to:
 
-- $V$ is the speed of the aircraft ($m/s$)  $\in \[20; 350\]$
+- $V$ is the speed of the aircraft ($m/s$)  $\in \[50; 350\]$
 - $S$ is the wing area ($m^2$)  $\in \[60; 200\]$
-- $\alpha$ is the angle of attack  $\in \[0; 1.57079633\]$
+- $\alpha$ is the angle of attack (rad)  $\in \[0; 0.43\]$
 - $e$ is the Oswald efficiency factor  $\in \[0; 1\]$
 - $AR$ is the wing aspect ratio  $\in \[5; 15\]$
 
@@ -56,42 +56,45 @@ We will pre-define the number of generations we want to optimize over and abort 
 Following result was obtained by having `POPULATION_SIZE = 150` and stopping criteria constant `MAX_GENERATIONS = 100`.
 ```
 Generation: 1
-Best fitness: 1.8135317035889294E7
+Best fitness: 8121325.844336658
 Generation: 2
-Best fitness: 2.1045501991996493E7
-...
-Generation: 7
-Best fitness: 2.1045501991996493E7
-Generation: 8
-Best fitness: 2.154905052924889E7
-Generation: 9
-Best fitness: 2.154905052924889E7
-Generation: 10
-Best fitness: 2.154905052924889E7
+Best fitness: 8121325.844336658
+Generation: 3
+Best fitness: 8121325.844336658
 ...
 ...
 ...
-Generation: 62
-Best fitness: 4.3653154580234885E7
-Generation: 63
-Best fitness: 4.3653154580234885E7
+Generation: 73
+Best fitness: 9273070.677375384
+Generation: 74
+Best fitness: 9273070.677375384
+Generation: 75
+Best fitness: 9273070.677375384
+Generation: 76
+Best fitness: 1.2647211860884406E7
+
 ...
 ...
-Generation: 94
-Best fitness: 4.552910518702196E7
-Generation: 95
-Best fitness: 4.552910518702196E7
+
 Generation: 96
-Best fitness: 4.552910518702196E7
+Best fitness: 1.2647211860884406E7
 Generation: 97
-Best fitness: 4.552910518702196E7
+Best fitness: 1.2647211860884406E7
 Generation: 98
-Best fitness: 4.552910518702196E7
+Best fitness: 1.2647211860884406E7
 Generation: 99
-Best fitness: 4.552910518702196E7
+Best fitness: 1.2647211860884406E7
 Generation: 100
-Best fitness: 4.552910518702196E7
+Best fitness: 1.2647211860884406E7
+
+------Component--------|----Value----
+
+Speed of the aircraift:   345.61
+Wing area:                189.95
+Angle of attack:          0.41
+Oswald eff. factor:       0.12
+Wing aspect ratio:        5.29
 
 ```
-Result is returning the maximized Lift $L$. At this point it would obviously easy to extract the genes which have maximized this property.
-We can reason that the delievered result is somewhat reasonable by realizing that an airplane can weigh up to $600.000 kg$ corresponding rouhgly to needed lift of at least $6MN$. At generation 100, the best configuration has a lift force of roughly $45 MN$. That means there is an order of magnitude difference to the enforced minimum and in real life, ther would be many factors further limiting the lift force.
+Result is returning the maximized Lift $L$. At this point it would obviously easy to extract the genes which have maximized this property.\
+We can reason that the delievered result is somewhat reasonable by realizing that an airplane can weigh up to $600.000 kg$ corresponding rouhgly to needed lift of at least $6MN$. At generation 100, the best configuration has a lift force of roughly $10 MN$. Hence in the range of reasonable results.
