@@ -1,8 +1,8 @@
 # 2. Optimizing the design of an aircraft (ODA)
-Optimizing the design of an aircraft to maximize lift. (Radim)
+Optimizing the design of an aircraft to maximize lift. We model this problem as having a few components for which we want to maximize the lift force. To limit the ranges of the components, we assume we are modeling this problem on an airliner (e.g. Boeing 777 and similar).
 
 ## Population
-Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = V, S, \alpha , e, AR$ of design variables that define a part of an aircraft. The dimensions correspond to:
+Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = (V, S, \alpha , e, AR) \in \mathbb{R}^5$ of design variables that define a part of an aircraft. The dimensions correspond to:
 
 - $V$ is the speed of the aircraft ($m/s$)  $\in \[50; 350\]$
 - $S$ is the wing area ($m^2$)  $\in \[60; 200\]$
@@ -97,4 +97,4 @@ Wing aspect ratio:        5.29
 
 ```
 Result is returning the maximized Lift $L$. At this point it would obviously easy to extract the genes which have maximized this property.\
-We can reason that the delievered result is somewhat reasonable by realizing that an airplane can weigh up to $600.000 kg$ corresponding rouhgly to needed lift of at least $6MN$. At generation 100, the best configuration has a lift force of roughly $10 MN$. Hence in the range of reasonable results.
+We can reason that the delievered result is somewhat reasonable by realizing that a loaded airplane can weigh _up to_ $600.000 kg$ corresponding rouhgly to needed lift of at least $6MN$. At generation 100, the best configuration has a lift force of roughly $9.5 MN$ (computed average of 10 simulations). Hence in the range of reasonable results. In real life achieving this lift by an airplane might be impossible - it's more about a half of our computed maximum. Result is coming from simplifying and theoretizing about the components and their ranges.
