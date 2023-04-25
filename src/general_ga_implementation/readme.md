@@ -22,7 +22,7 @@ while (stopping criteria not met)
   select parents from population
   generate children
   replace worst individual with child in the population
-extraxct the best individual
+extract the best individual
 ```
 ## This implementation - Aspects of the algorithm
 
