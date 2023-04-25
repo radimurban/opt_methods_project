@@ -12,7 +12,7 @@ See more about GA and the general implementation [here](/src/general_ga_implemen
 4. Check stopping criteria. If not met: goto 2 .
 
 ## Problem 1: Optimal allocation of resources (OAR)
-Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. Detailed problem description and solution are [here](/src/resource_allocation)
+Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. Detailed problem description and solution are [here](/src/resource_allocation).
 
 ### Population
 There are two classes, Resource and Product. Each population contains n resources and m products. 
