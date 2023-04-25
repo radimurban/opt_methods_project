@@ -4,6 +4,8 @@ This repository implements generic Genetic Algorithm and applies it to 3 various
 
 ## Genetic Algorithm Description
 
+See more about GA and the general implementation [here](/src/general_ga_implementation).
+
 1. Create random population of $N$ individuals $p_n$ (initialization)
 2. Select parents from population
 3. Generate children using mutation and crossover simplicity: again $N$ individuals
