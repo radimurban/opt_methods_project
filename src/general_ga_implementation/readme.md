@@ -11,12 +11,16 @@ for the next generation. Over successive generations, the population "evolves" t
 
 from [MathWorks.com](https://www.mathworks.com/help/gads/what-is-the-genetic-algorithm.html)
 
+![](https://www.eejournal.com/wp-content/uploads/2020/07/max-0040-02-genetic-algorithms.png)
+
 ## Algorithm Description
 ```
 create population
 while (stopping criteria not met)
   select 2 parents from population
   generate children
+  replace worst individual with child in the population
+extraxct the best individual
 ```
 ## Aspects of the algorithm
 
