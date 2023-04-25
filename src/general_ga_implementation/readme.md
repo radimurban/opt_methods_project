@@ -13,6 +13,8 @@ from [MathWorks.com](https://www.mathworks.com/help/gads/what-is-the-genetic-alg
 
 ![](https://www.eejournal.com/wp-content/uploads/2020/07/max-0040-02-genetic-algorithms.png)
 
+from [EE Journal](https://www.eejournal.com/article/when-genetic-algorithms-meet-artificial-intelligence/)
+
 ## Algorithm - High Level Description
 ```
 create population
