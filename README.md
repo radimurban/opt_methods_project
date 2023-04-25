@@ -9,8 +9,7 @@ This repository implements generic Genetic Algorithm and applies it to 3 various
 3. Generate children using mutation and crossover simplicity: again $N$ individuals
 4. Check stopping criteria. If not met: goto 2 .
 
-## Problems that we apply the GA on:
-### 1. Optimal allocation of resources (OAR)
+## Problem 1: Optimal allocation of resources (OAR)
 Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. (Zdenek)
 
 A practical real-world example of optimizing resource allocation in a supply chain to minimize costs and maximize efficiency could be in the production of a consumer electronics product, such as a smartphone. In this example, the supply chain involves several stages, including the sourcing of raw materials, manufacturing of components, assembly of the final product, and distribution to retailers.
@@ -97,7 +96,7 @@ public Resource crossover(Resource parent1, Resource parent2) {
     }
 ```
 
-### 2. Optimizing the design of an aircraft (ODA)
+## Problem 2: Optimizing the design of an aircraft (ODA)
 
 Optimizing the design of an aircraft to maximize lift. Detailed problem description [here](/src/airplane_design).
 
@@ -120,7 +119,7 @@ We will pre-define the number of generations we want to optimize over and abort 
 Result is returning the maximized Lift $L$. At this point it would obviously easy to extract the genes which have maximized this property.
 We can reason that the delievered result is somewhat reasonable by realizing that an airplane can weigh up to $600.000 kg$ corresponding rouhgly to needed lift of at least $6MN$. At generation 100, the best configuration has a lift force of roughly $45 MN$. That means there is an order of magnitude difference to the enforced minimum and in real life, ther would be many factors further limiting the lift force.
 
-### 3. Optimizing the power of an engine
+## Problem 3: Optimizing the power of an engine
 Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximalpower output of an engine. (Rene)
 #### Population
 Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = MEP, stroke, bore , revs$ of design variables that define a part of an aircraft. The dimensions correspond to:
