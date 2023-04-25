@@ -13,16 +13,16 @@ from [MathWorks.com](https://www.mathworks.com/help/gads/what-is-the-genetic-alg
 
 ![](https://www.eejournal.com/wp-content/uploads/2020/07/max-0040-02-genetic-algorithms.png)
 
-## Algorithm Description
+## Algorithm - High Level Description
 ```
 create population
 while (stopping criteria not met)
-  select 2 parents from population
+  select parents from population
   generate children
   replace worst individual with child in the population
 extraxct the best individual
 ```
-## Aspects of the algorithm
+## This implementation - Aspects of the algorithm
 
 ### Population Initilization 
 Random population of $N$ individuals $p_n$ (initialization), where $p_n$ is a bitstring of length $L$.
