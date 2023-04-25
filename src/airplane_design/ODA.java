@@ -1,4 +1,4 @@
-package opti_des_air;
+package airplane_design;
 
 import java.util.Random;
 

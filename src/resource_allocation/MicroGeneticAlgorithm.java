@@ -1,4 +1,4 @@
-package oga;
+package resource_allocation;
 
 import java.util.ArrayList;
 import java.util.Arrays;

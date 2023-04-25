@@ -1,4 +1,4 @@
-package general_ga;
+package general_ga_implementation;
 import java.util.Random;
 
 public class GeneticAlgorithm {
