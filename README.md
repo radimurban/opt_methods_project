@@ -89,7 +89,7 @@ private static int selectParent(double[] fitness) {
 ```
 ### Generating Children
 
-
+We generate children by randomly mixing up the attributes of parents with the following program:
 
 ```java
 
@@ -104,5 +104,7 @@ private static double[] crossover(double[] parent1, double[] parent2) {
 ```
 
 ### Stopping Criteria
+Maximal number of generations will be pre-defined.
 
+### Sample Results
 
