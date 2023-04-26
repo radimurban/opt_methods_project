@@ -47,7 +47,7 @@ We generate children as follows. To optimize but also to keep randomness in the 
 We will pre-define the number of generations we want to optimize over and abort after achieving this number.
 
 ## Problem 3: Optimizing the power of an engine
-Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximal power output of an engine. (Rene)
+Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximal power output of an engine. 
 
 ### Population
 Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = MEP, stroke, bore , revs$ of design variables that define a part of an aircraft. The dimensions correspond to:
