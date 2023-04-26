@@ -131,4 +131,10 @@ Current generation: 23 Power: 191.36705308728457
 Current generation: 97 Power: 192.74861000371254
 Current generation: 98 Power: 192.74861000371254
 Current generation: 99 Power: 192.74861000371254
+Best engine parameters:
+Mean effective pressure: 279.5649404443828
+Stroke: 0.2996102145516404
+Bore: 3.4885951446065233
+Revs: 3972.3257121139554
+Power: 192.74861000371254
 ```
