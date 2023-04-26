@@ -53,12 +53,15 @@ Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per mi
 Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = MEP, stroke, bore , revs$ of design variables that define a part of an aircraft. The dimensions correspond to:
 
 - $MEP$ is a measure of the average pressure exerted by the gases in the combustion chamber of an engine during the power stroke ($psi$)  $\in \[170; 280\]$
-- $Stroke length$ is the distance that the piston travels in the cylinder between the top dead center (TDC) and the bottom dead center (BDC) positions. ($ft$)  $\in \[0.27; 0.3\]$
+- $Stroke_length$ is the distance that the piston travels in the cylinder between the top dead center (TDC) and the bottom dead center (BDC) positions. ($ft$)  $\in \[0.27; 0.3\]$
 - $Bore$ is the diameter of the cylinder in which the piston moves ($in$)  $\in \[2.9; 3.5\]$
-- $revs$ refer to the number of times an engine's crankshaft rotates in a given period of time. ($rpm$)  $\in \[0; 1\]$
+- $Revs$ refer to the number of times an engine's crankshaft rotates in a given period of time. ($rpm$)  $\in \[0; 1\]$
 For the example we choose a specific range of values that represent the specification of a typical diesel engine. 
 
 ### Fitness function
+Each member of the population is evaluated using a fitness function that computes the power output of engine. In this case we want to maximize the power of an engine.
+
+
 ### Parent Selection
 ### Generating Children
 ### Stopping Criteria
