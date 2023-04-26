@@ -66,6 +66,15 @@ $$
 
 
 ### Parent Selection
+
+```java
+ double[][] parents = new double[POPULATION_SIZE][4];
+            for (int i = 0; i < POPULATION_SIZE; i++) {
+                int parent1Index = selectParent(fitness);
+                int parent2Index = selectParent(fitness);
+                parents[i] = crossover(population[parent1Index], population[parent2Index]);
+            }
+```
 ### Generating Children
 ### Stopping Criteria
 
