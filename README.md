@@ -61,7 +61,9 @@ For the example we choose a specific range of values that represent the specific
 ### Fitness function
 Each member of the population is evaluated using a fitness function that computes the power output of engine. In this case we want to maximize the power of an engine.
 $$
+
 L = \frac{1}{2} * \rho * V^2 * S * \frac{(2 * \pi * \alpha)}{ (1 + (\pi * e * AR))}
+
 $$
 
 
