@@ -59,12 +59,8 @@ Let's assume that each candidate solution (i.e., chromosome) in the population i
 For the example we choose a specific range of values that represent the specification of a typical diesel engine. 
 
 ### Fitness function
-Each member of the population is evaluated using a fitness function that computes the power output of engine. In this case we want to maximize the power of an engine.
-$$
-
-L = \frac{1}{2} * \rho * V^2 * S * \frac{(2 * \pi * \alpha)}{ (1 + (\pi * e * AR))}
-
-$$
+Each member of the population is evaluated using a fitness function that computes the power output of engine. We will predefine the number of cylinders, which is also a part of the formula. In this case we want to maximize the power of an engine.
+$$ ((Number of cylinders)*MEP*Stroke_length*(PI/4)*(Math.pow(Bore,2))*Revs))/(2*33000)$$
 
 
 ### Parent Selection
@@ -140,3 +136,4 @@ Bore: 3.4885951446065233
 Revs: 3972.3257121139554
 Power: 192.74861000371254
 ```
+We can see the resulting sizes of the optimal engine. If we calculate the discplacement of the engine in this case, where we predefined that the engine has 4 cylinders, we get about 136 cubic inches, which is about 2.2 liters. This power output for the displacemt of the engine seems very reasonable. The algorithm converges very fast to a result and then doesn't change much for the rest of the iteration. 
