@@ -61,7 +61,7 @@ For the example we choose a specific range of values that represent the specific
 ### Fitness function
 Each member of the population is evaluated using a fitness function that computes the power output of engine. In this case we want to maximize the power of an engine.
 $$ 
-\frac{(cylindersnumber*engineParams[0]*engineParams[1]*(PI/4)*(Math.pow(engineParams[2],2))*(engineParams[3]))}{(2*33000) }
+Power= \frac{(cylindersnumber*engineParams[0]*engineParams[1]*(PI/4)*(Math.pow(engineParams[2],2))*(engineParams[3]))}{(2*33000) }
 $$
 
 
