@@ -66,16 +66,43 @@ $$
 
 
 ### Parent Selection
+We will randomly select two parents for the crossover with the following part of the program:
 
 ```java
- double[][] parents = new double[POPULATION_SIZE][4];
-            for (int i = 0; i < POPULATION_SIZE; i++) {
-                int parent1Index = selectParent(fitness);
-                int parent2Index = selectParent(fitness);
-                parents[i] = crossover(population[parent1Index], population[parent2Index]);
-            }
+private static int selectParent(double[] fitness) {
+        double totalFitness = 0.0;
+        for (double f : fitness) {
+            totalFitness += f;
+        }
+
+        double rand = random.nextDouble() * totalFitness;
+        int index = 0;
+        while (rand > 0) {
+            rand -= fitness[index];
+            index++;
+        }
+        index--;
+
+        return index;
+    }
+
 ```
 ### Generating Children
+
+
+
+```java
+
+private static double[] crossover(double[] parent1, double[] parent2) {
+        double[] offspring = new double[4];
+        for (int i = 0; i < 4; i++) {
+            offspring[i] = random.nextBoolean() ? parent1[i] : parent2[i];
+        }
+
+        return offspring;
+    }
+```
+
 ### Stopping Criteria
 
 
