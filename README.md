@@ -107,4 +107,28 @@ private static double[] crossover(double[] parent1, double[] parent2) {
 Maximal number of generations will be pre-defined.
 
 ### Sample Results
-
+After letting the program run once we obtained the following results:
+```
+Current generation: 0 Power: 172.30875761283218
+Current generation: 1 Power: 179.41164990040235
+Current generation: 2 Power: 176.32772827419709
+Current generation: 3 Power: 180.43241667622289
+Current generation: 4 Power: 181.07112755762162
+Current generation: 5 Power: 181.07112755762162
+Current generation: 6 Power: 176.0395650676611
+Current generation: 7 Power: 179.7047058207012
+Current generation: 8 Power: 182.55219091640774
+Current generation: 9 Power: 180.99903878634007
+Current generation: 10 Power: 182.72063746713687
+```
+```
+Current generation: 20 Power: 185.77070982524214
+Current generation: 21 Power: 192.74861000371254
+Current generation: 22 Power: 192.74861000371254
+Current generation: 23 Power: 191.36705308728457
+```
+```
+Current generation: 97 Power: 192.74861000371254
+Current generation: 98 Power: 192.74861000371254
+Current generation: 99 Power: 192.74861000371254
+```
