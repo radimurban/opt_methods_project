@@ -8,21 +8,22 @@ import java.util.Random;
 public class ResourceAllocation {
 	private static final int POPULATION_SIZE = 5;
 	private static final int NUMBER_RESOURCES = 3;
+	private static final int NUMBER_PRODUCTS = 3;
     private static final int MAX_GENERATIONS = 100;
     private static final int RESOURCE_LIMIT = 100;
     private static final double ELITISM_RATE = 0.2;
-    private static final double MUTATION_RATE = 0.0; // Only for testing purposes against full GA
+    private static final double MUTATION_RATE = 0.0; // Only for testing purposes against a full GA
     private static final Random RANDOM = new Random();
 
 	public static void main(String[] args) {
 		// Initialize manager and population
 		double prices[] = new double[] {0.5, 1.5, 2.0};
-		Manager man = new Manager(NUMBER_RESOURCES, prices, RESOURCE_LIMIT);
-		
 		int[][] neededResources = new int[][] { {1, 1, 0},
-												{0, 1, 1},
-												{1, 0, 1} };
-		double sellingPrices[] = new double[] {6, 10.5, 7.5};
+			{0, 1, 1},
+			{1, 0, 1} };
+			double sellingPrices[] = new double[] {6, 10.5, 7.5};
+		Manager man = new Manager(NUMBER_RESOURCES, prices, RESOURCE_LIMIT, POPULATION_SIZE, NUMBER_PRODUCTS, neededResources, sellingPrices);
+		
 		man.populateR(POPULATION_SIZE);
 		man.populateP(3, neededResources, sellingPrices);
 
@@ -61,6 +62,8 @@ public class ResourceAllocation {
                 Resource child;
                 do {
                 	child = man.crossover(parent1, parent2);
+                	// Only for testing purposes against a full GA
+                	// Default mutation rate is 0.0
                 	if (RANDOM.nextDouble() < MUTATION_RATE) {
                         man.mutate(child);
                     }
@@ -91,16 +94,31 @@ class Manager {
 	private int n;
 	private double prices[];
 	private int limit;
+	private double mutationRate;
 	private Random random = new Random();
 	
 	private Resource[] resources;
 	private Product[] products;
 	
 	// Constructor with user defined values
-	public Manager(int n, double[] prices, int limit) {
+	public Manager(int n, double[] prices, int limit, int populationSize, int numberProducts, int[][] neededResources, double[] sellingPrices) {
 		this.n = n;
 		this.prices = prices;
 		this.limit = limit;
+		this.mutationRate = 0.0;
+		
+		this.populateR(populationSize);
+		this.populateP(3, neededResources, sellingPrices);
+	}
+	
+	public Manager(int n, double[] prices, int limit, int populationSize, int numberProducts, int[][] neededResources, double[] sellingPrices, double mutationRate) {
+		this.n = n;
+		this.prices = prices;
+		this.limit = limit;
+		this.mutationRate = mutationRate;
+		
+		this.populateR(populationSize);
+		this.populateP(3, neededResources, sellingPrices);
 	}
 	
 	// Get and set methods
@@ -116,7 +134,7 @@ class Manager {
 	public void populateR(int num) {
 		Resource[] population = new Resource[num];
 		for (int i = 0; i < num; i++) {
-			int runningSum = 20;
+			int runningSum = 0;
 			int resources[] = new int[n];
 			double varCost = 0.0;
 			
