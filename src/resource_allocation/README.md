@@ -99,3 +99,51 @@ public Resource crossover(Resource parent1, Resource parent2) {
         return new Resource(childResources, varCost);
     }
 ```
+
+
+#### Sample Results
+```
+Generation: 0
+Best allocation: [12, 14, 7]
+Cost: 41.0
+Profit: 115.5
+Penalty: 5.0
+Fitness: 78.8780487804878
+
+Generation: 1
+Best allocation: [12, 14, 16]
+Cost: 59.0
+Profit: 162.0
+Penalty: 10.0
+Fitness: 87.86440677966101
+
+Generation: 2
+Best allocation: [12, 14, 16]
+Cost: 59.0
+Profit: 162.0
+Penalty: 10.0
+Fitness: 87.86440677966101
+...
+...
+...
+Generation: 98
+Best allocation: [12, 14, 16]
+Cost: 59.0
+Profit: 162.0
+Penalty: 10.0
+Fitness: 87.86440677966101
+
+Generation: 99
+Best allocation: [12, 14, 16]
+Cost: 59.0
+Profit: 162.0
+Penalty: 10.0
+Fitness: 87.86440677966101
+
+Generation: 100
+Best allocation: [12, 14, 16]
+Cost: 59.0
+Profit: 162.0
+Penalty: 10.0
+Fitness: 87.86440677966101
+```

@@ -116,7 +116,7 @@ class Manager {
 	public void populateR(int num) {
 		Resource[] population = new Resource[num];
 		for (int i = 0; i < num; i++) {
-			int runningSum = 0;
+			int runningSum = 20;
 			int resources[] = new int[n];
 			double varCost = 0.0;
 			
