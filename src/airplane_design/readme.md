@@ -23,8 +23,8 @@ where:
 - $\rho$ is the air density (kg/m^3) -> Assume constant at $1.293 kg/m^3$
 
 ## Parent Selection
-We will choose two parents. Both as chromosome maximizing the fitness function among 10 randomly selected chromosomes.
-Randomness might make sense because for example of different conditions for the plane (meaning, the chromosome maximizing the fitness function might not maximize it in all conditions). 
+We will choose two parents. Both as chromosome maximizing the fitness function among 10 randomly selected chromosomes (*Tournament Selection*)
+Some randomness might make sense because for example of different conditions for the plane (meaning, the chromosome maximizing the fitness function might not maximize it in all conditions). 
 
 Selecting one parent will look like this:
 
@@ -40,14 +40,38 @@ return best;
 ```
 
 ## Generating Children
-We generate children as follows. To optimize but also to keep randomness in the process we _randomly_ mix the genes of the two parents. 
+We generate children as follows. To optimize but also to keep randomness in the process we _randomly_ mix the genes of the two parents. (Unifrom Crossover with randomly generated mask)
 
 ```java
-double[] childGenes = new double[genes.length];
-for (int i = 0; i < childGenes.length; i++) {
-    childGenes[i] = random.nextBoolean() ?  this.getGenes()[i] : other.getGenes()[i];
+public Chromosome[] crossover(Chromosome other) {
+    double[] childGenes = new double[genes.length];
+    double[] otherChildGenes = new double[genes.length];
+
+    for (int i = 0; i < childGenes.length; i++) {
+        boolean mask = random.nextBoolean();
+
+        // Mask bit stays unchanged for both assignments => children inherit from different parents
+        childGenes[i] = mask ? this.getGenes()[i] : other.getGenes()[i];
+        otherChildGenes[i] = mask ? other.getGenes()[i] : this.getGenes()[i];
+        
+    }
+
+    Chromosome first_child = new Chromosome(childGenes);
+    Chromosome second_child = new Chromosome(otherChildGenes);
+    Chromosome[] children = {first_child, second_child};
+
+    return children;
 }
-return new Chromosome(childGenes);
+```
+We then replace the worst individuals (lowest fitness score) with just generated children.
+```java
+// Crossover
+Chromosome[] children = parent1.crossover(parent2);
+
+// Replace x worst individuals with x children
+for (Chromosome child : children){
+    population.replaceWorst(child);
+}
 ```
 ## Stopping Criteria
 We will pre-define the number of generations we want to optimize over and abort after achieving this number.
