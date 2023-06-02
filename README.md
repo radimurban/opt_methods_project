@@ -50,7 +50,7 @@ We will pre-define the number of generations we want to optimize over and abort 
 Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximal power output of an engine. 
 
 ### Population
-Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = MEP, stroke, bore , revs$ of design variables that define a part of an aircraft. The dimensions correspond to:
+Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = MEP, stroke, bore , revs$ of design variables that define a part of an aircraft. The type of encoding used to represent the population in the algorithm is called value encoding, since we have specific values for every gene. The dimensions correspond to:
 
 - $MEP$ is a measure of the average pressure exerted by the gases in the combustion chamber of an engine during the power stroke ($psi$)  $\in \[170; 280\]$
 - $Strokelength$ is the distance that the piston travels in the cylinder between the top dead center (TDC) and the bottom dead center (BDC) positions. ($ft$)  $\in \[0.27; 0.3\]$
@@ -67,7 +67,7 @@ $$
 
 
 ### Parent Selection
-We will randomly select two parents for the crossover with the following part of the program:
+We use a Roulette Wheel Selection, where the individuals with better fitness have greater probability to be selected. The method randomly chooses an individual by spinning a "roulette wheel" based on the assigned probabilities. The following code is used to achieve this:  
 
 ```java
 private static int selectParent(double[] fitness) {
@@ -90,7 +90,7 @@ private static int selectParent(double[] fitness) {
 ```
 ### Generating Children
 
-We generate children by randomly mixing up the attributes of parents with the following program:
+We generate children by randomly mixing up the attributes of parents with the following program (Unifrom Crossover with randomly generated mask):
 
 ```java
 
@@ -139,4 +139,4 @@ Bore: 3.4885951446065233
 Revs: 3972.3257121139554
 Power: 192.74861000371254
 ```
-We can see the resulting sizes of the optimal engine. If we calculate the discplacement of the engine in this case, where we predefined that the engine has 4 cylinders, we get about 136 cubic inches, which is about 2.2 liters. This power output for the displacemt of the engine seems very reasonable. The algorithm converges very fast to a result and then doesn't change much for the rest of the iteration. 
+We can see the resulting sizes of the optimal engine. If we calculate the discplacement of the engine in this case, where we predefined that the engine has 4 cylinders, we get about 136 cubic inches, which is about 2.2 liters. This power output for the displacement of the engine seems very reasonable. The algorithm converges very fast to a result and then doesn't change much for the rest of the iteration. 
