@@ -64,6 +64,7 @@ Each member of the population is evaluated using a fitness function that compute
 $$
 ((\operatorname{Number of cylinders}) \cdot \operatorname{MEP} \cdot \operatorname{Strokelength} \cdot (\pi/4) \cdot (\operatorname{Bore}^2) \cdot \operatorname{Revs}))/(\operatorname{c} \cdot 33000)
 $$
+
 With this formula we calculate the power of an engine in ($kW$). The constant c in the formula is 1 for a two stroke engine and 2 for a four stroke engine. The constant 33000 is used to convert the result to ($kW$)
 
 ### Parent Selection
