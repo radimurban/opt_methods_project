@@ -62,9 +62,9 @@ For the example we choose a specific range of values that represent the specific
 Each member of the population is evaluated using a fitness function that computes the power output of engine. We will predefine the number of cylinders, which is also a part of the formula. In this case we want to maximize the power of an engine.
 
 $$
-((\operatorname{Number of cylinders}) \cdot \operatorname{MEP} \cdot \operatorname{Strokelength} \cdot (\pi/4) \cdot (\operatorname{Bore}^2) \cdot \operatorname{Revs}))/(2 \cdot 33000)
+((\operatorname{Number of cylinders}) \cdot \operatorname{MEP} \cdot \operatorname{Strokelength} \cdot (\pi/4) \cdot (\operatorname{Bore}^2) \cdot \operatorname{Revs}))/(\operatorname{c} \cdot 33000)
 $$
-
+With this formula we calculate the power of an engine in ($kW$). The constant c in the formula is 1 for a two stroke engine and 2 for a four stroke engine. The constant 33000 is used to convert the result to ($kW$)
 
 ### Parent Selection
 We use a Roulette Wheel Selection, where the individuals with better fitness have greater probability to be selected. The method randomly chooses an individual by spinning a "roulette wheel" based on the assigned probabilities. The following code is used to achieve this:  
