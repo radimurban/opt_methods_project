@@ -6,23 +6,23 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class ResourceAllocation {
-	private static final int POPULATION_SIZE = 5;
-	private static final int NUMBER_RESOURCES = 3;
-	private static final int NUMBER_PRODUCTS = 3;
+	private static final int POPULATION_SIZE = 400;
+	private static final int NUMBER_RESOURCES = 6;
+	private static final int NUMBER_PRODUCTS = 4;
     private static final int MAX_GENERATIONS = 100;
     private static final int RESOURCE_LIMIT = 100;
     private static final double ELITISM_RATE = 0.2;
-    private static final double MUTATION_RATE = 0.0; // Only for testing purposes against a full GA
     private static final Random RANDOM = new Random();
 
 	public static void main(String[] args) {
 		// Initialize manager and population
-		double prices[] = new double[] {0.5, 1.5, 2.0};
-		int[][] neededResources = new int[][] { {1, 1, 0},
-			{0, 1, 1},
-			{1, 0, 1} };
-			double sellingPrices[] = new double[] {6, 10.5, 7.5};
-		Manager man = new Manager(NUMBER_RESOURCES, prices, RESOURCE_LIMIT, POPULATION_SIZE, NUMBER_PRODUCTS, neededResources, sellingPrices);
+		double prices[] = new double[] {1.5, 4.0, 6.5, 8.0, 2.0, 9.5};
+		int[][] neededResources = new int[][] { {2, 1, 3, 0, 2, 1},
+			{1, 3, 0, 2, 1, 3},
+			{3, 2, 1, 0, 1, 3},
+			{0, 2, 1, 3, 0, 1} };
+			double sellingPrices[] = new double[] {120, 180, 148.5, 144};
+		Manager man = new Manager(NUMBER_RESOURCES, prices, RESOURCE_LIMIT, POPULATION_SIZE, NUMBER_PRODUCTS, neededResources, sellingPrices, 0.7);
 		
 		man.populateR(POPULATION_SIZE);
 		man.populateP(3, neededResources, sellingPrices);
@@ -31,7 +31,9 @@ public class ResourceAllocation {
 		man.evaluate();
 		
         // Evolution loop
-		for (int generation = 0; generation < MAX_GENERATIONS; generation++) {
+		int generation = 0;
+		double oldFitness = 0;
+		while (generation < MAX_GENERATIONS) {
 
 			// Sort the population by fitness in descending order
 			Arrays.sort(man.getResource(), Comparator.comparingDouble(Resource::getFitness).reversed());
@@ -44,6 +46,11 @@ public class ResourceAllocation {
 			System.out.println("Profit: " + man.evalProfit(bestres)[0]);
 			System.out.println("Penalty: " + man.evalProfit(bestres)[1]);
 			System.out.println("Fitness: " + bestres.getFitness());
+			
+			if (bestres.getFitness() - oldFitness < 0.000001) {
+				break;
+			}
+			oldFitness = bestres.getFitness();
 
 			
             // Select the elite resources for the next generation
@@ -64,10 +71,10 @@ public class ResourceAllocation {
                 	child = man.crossover(parent1, parent2);
                 	// Only for testing purposes against a full GA
                 	// Default mutation rate is 0.0
-                	if (RANDOM.nextDouble() < MUTATION_RATE) {
+                	if (RANDOM.nextDouble() <= man.getMutationRate()) {
                         man.mutate(child);
                     }
-                } while (Arrays.stream(child.getResources()).sum() > 100);
+                } while (Arrays.stream(child.getResources()).sum() > RESOURCE_LIMIT);
 
                 newPopulation[i] = child;
             }
@@ -77,15 +84,18 @@ public class ResourceAllocation {
             // Evaluate new fitness
             man.evaluate();
             
+            generation++;
         }
 		
-		System.out.println("Generation: 100");
-		Resource bestres = man.getResource()[0];
-		System.out.println("Best allocation: " + Arrays.toString(bestres.getResources()));
-		System.out.println("Cost: " + bestres.getCost());
-		System.out.println("Profit: " + man.evalProfit(bestres)[0]);
-		System.out.println("Penalty: " + man.evalProfit(bestres)[1]);
-		System.out.println("Fitness: " + bestres.getFitness());
+		if (generation == MAX_GENERATIONS+1) {
+			System.out.println("Generation: " + generation);
+			Resource bestres = man.getResource()[0];
+			System.out.println("Best allocation: " + Arrays.toString(bestres.getResources()));
+			System.out.println("Cost: " + bestres.getCost());
+			System.out.println("Profit: " + man.evalProfit(bestres)[0]);
+			System.out.println("Penalty: " + man.evalProfit(bestres)[1]);
+			System.out.println("Fitness: " + bestres.getFitness());			
+		}
 
 	}
 }
@@ -130,6 +140,10 @@ class Manager {
 		this.resources = resources;
 	}
 	
+	public double getMutationRate() {
+		return mutationRate;
+	}
+	
 	// Create num Resources
 	public void populateR(int num) {
 		Resource[] population = new Resource[num];
@@ -172,7 +186,16 @@ class Manager {
     	double[] arr = evalProfit(res);
     	double profit = arr[0];
     	double penalty = arr[1];
-        return (profit / res.getCost()) * (Arrays.stream(res.getResources()).sum() - penalty);
+    	double result = 0.0;
+    	try {
+    		result = (profit / res.getCost()) * (Arrays.stream(res.getResources()).sum() - penalty) / (3 * limit);
+    		if (result < 0) {
+    			result = 0;
+    		}
+    	} catch (Exception NullPointerException) {
+    		result = 0;
+    	}
+        return result;
     }
     
     // Helper function - returns the maximum profit we can get from the given resource
@@ -241,7 +264,7 @@ class Manager {
     
     // Perform mutation by randomly changing one resource allocation
     public void mutate(Resource res) {
-        int index = random.nextInt(3);
+        int index = random.nextInt(res.getResources().length);
         res.setCost(res.getCost() - res.getResources()[index] * prices[index]);
         res.getResources()[index] = random.nextInt(limit);
         res.setCost(res.getCost() + res.getResources()[index] * prices[index]);
