@@ -68,24 +68,32 @@ $$
 With this formula we calculate the power of an engine in ($kW$). The constant c in the formula is 1 for a two stroke engine and 2 for a four stroke engine. The constant 33000 is used to convert the result to ($kW$)
 
 ### Parent Selection
-We use a Roulette Wheel Selection, where the individuals with better fitness have greater probability to be selected. The method randomly chooses an individual by spinning a "roulette wheel" based on the assigned probabilities. The following code is used to achieve this:  
+We use a Tournament Selection. It involves randomly selecting a subset of individuals from the population (we can choose the tournament size in the function call), and then choosing the best individual from that subset as a parent for the next generation. Here's how this is implemented in the code:
 
 ```java
-private static int selectParent(double[] fitness) {
-        double totalFitness = 0.0;
-        for (double f : fitness) {
-            totalFitness += f;
+ private static double[] tournamentSelection(double[][] population, double[] fitness, int tournamentSize) {
+        int[] tournamentIndices = new int[tournamentSize];
+
+        // Randomly select individuals for the tournament
+        for (int i = 0; i < tournamentSize; i++) {
+            tournamentIndices[i] = random.nextInt(population.length);
         }
 
-        double rand = random.nextDouble() * totalFitness;
-        int index = 0;
-        while (rand > 0) {
-            rand -= fitness[index];
-            index++;
-        }
-        index--;
+        // Find the fittest individual in the tournament
+        int fittestIndex = tournamentIndices[0];
+        double fittestFitness = fitness[fittestIndex];
+        for (int i = 1; i < tournamentSize; i++) {
+            int currentIndex = tournamentIndices[i];
+            double currentFitness = fitness[currentIndex];
 
-        return index;
+            if (currentFitness > fittestFitness) {
+                fittestIndex = currentIndex;
+                fittestFitness = currentFitness;
+            }
+        }
+
+        // Return the fittest individual
+        return population[fittestIndex];
     }
 
 ```
@@ -109,35 +117,8 @@ private static double[] crossover(double[] parent1, double[] parent2) {
 Maximal number of generations will be pre-defined.
 
 ### Sample Results
-After letting the program run once we obtained the following results:
-```
-Current generation: 0 Power: 172.30875761283218
-Current generation: 1 Power: 179.41164990040235
-Current generation: 2 Power: 176.32772827419709
-Current generation: 3 Power: 180.43241667622289
-Current generation: 4 Power: 181.07112755762162
-Current generation: 5 Power: 181.07112755762162
-Current generation: 6 Power: 176.0395650676611
-Current generation: 7 Power: 179.7047058207012
-Current generation: 8 Power: 182.55219091640774
-Current generation: 9 Power: 180.99903878634007
-Current generation: 10 Power: 182.72063746713687
-```
-```
-Current generation: 20 Power: 185.77070982524214
-Current generation: 21 Power: 192.74861000371254
-Current generation: 22 Power: 192.74861000371254
+
+We ran the program five times with the following fixed parameters: number of cylinders: 4, constant "c" from the fitness formula: 2 (representing a four-stroke engine), tournament size: 5, number of generations: 100, and population size: 100, obtaining the following results: 
+<img width="573" alt="image" src="https://github.com/radimurban/opt_methods_project/assets/115483491/ce0536c8-86ab-42be-8893-890eb00e32b2">
 Current generation: 23 Power: 191.36705308728457
-```
-```
-Current generation: 97 Power: 192.74861000371254
-Current generation: 98 Power: 192.74861000371254
-Current generation: 99 Power: 192.74861000371254
-Best engine parameters:
-Mean effective pressure: 279.5649404443828
-Stroke: 0.2996102145516404
-Bore: 3.4885951446065233
-Revs: 3972.3257121139554
-Power: 192.74861000371254
-```
 We can see the resulting sizes of the optimal engine. If we calculate the discplacement of the engine in this case, where we predefined that the engine has 4 cylinders, we get about 136 cubic inches, which is about 2.2 liters. This power output for the displacement of the engine seems very reasonable. The algorithm converges very fast to a result and then doesn't change much for the rest of the iteration. 
