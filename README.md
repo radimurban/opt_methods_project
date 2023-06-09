@@ -120,5 +120,5 @@ Maximal number of generations will be pre-defined.
 
 We ran the program five times with the following fixed parameters: number of cylinders: 4, constant "c" from the fitness formula: 2 (representing a four-stroke engine), tournament size: 5, number of generations: 100, and population size: 100, obtaining the following results: 
 <img width="573" alt="image" src="https://github.com/radimurban/opt_methods_project/assets/115483491/ce0536c8-86ab-42be-8893-890eb00e32b2">
-Current generation: 23 Power: 191.36705308728457
-We can see the resulting sizes of the optimal engine. If we calculate the discplacement of the engine in this case, where we predefined that the engine has 4 cylinders, we get about 136 cubic inches, which is about 2.2 liters. This power output for the displacement of the engine seems very reasonable. The algorithm converges very fast to a result and then doesn't change much for the rest of the iteration. 
+The effectiveness of the genetic algorithm becomes evident as we observe consistent improvement in the results with each successive generation. On average, we achieve a notable increase to approximately 185kw. However, it's worth noting that the algorithm's convergence rate is relatively slow due to the utilization of a small tournament size.
+
