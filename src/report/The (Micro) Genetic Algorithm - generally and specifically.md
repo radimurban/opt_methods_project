@@ -393,22 +393,22 @@ How quickly the algorithm (in terms of generations) finds increases the found ma
 Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximal power output of an engine. 
 
 ### Population
-Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = (\operatorname{MEP}, \operatorname{stroke}, \operatorname{bore} , \operatorname{revs})$ of design variables that define a part of an aircraft. The type of encoding used to represent the population in the algorithm is called value encoding, since we have specific values for every gene. The dimensions correspond to:
+We will represent each candidate solution (i.e. chromosome) in the population is represented by a vector $p = (\operatorname{MEP}, \operatorname{stroke}, \operatorname{bore} , \operatorname{revs})$ of design variables that describe a part of an engine. The type of encoding used to represent the population in the algorithm is called value encoding, since we have specific values for every gene. The dimensions correspond to:
 
 - $\operatorname{MEP}$ is a measure of the average pressure exerted by the gases in the combustion chamber of an engine during the power stroke. $\in [170; 280]$ measured in $(psi)$
 - $\operatorname{Strokelength}$ is the distance that the piston travels in the cylinder between the top dead center (TDC) and the bottom dead center (BDC) positions. $\in [0.27; 0.3]$ measured in $(ft)$
 - $\operatorname{Bore}$ is the diameter of the cylinder in which the piston moves $\in [2.9; 3.5]$ measured in $(in)$
 - $\operatorname{Revs}$ refer to the number of times an engine's crankshaft rotates in a given period of time.  $\in [0; 1]$ measured in $(rpm)$
-For the example we choose a specific range of values that represent the specification of a typical diesel engine. 
+For the given example, we have selected a specific range of values that represent the specifications of a commonly used engine with approximately a 2-liter displacement(assuming a 4 cylinder engine). It should be noted that altering the bore and stroke length will yield different displacements. The mean effective pressure chosen is more characteristic of a diesel engine, as achieving such high pressures is typically not common in petrol engines.
 
 ### Fitness function
-Each member of the population is evaluated using a fitness function that computes the power output of engine. We will predefine the number of cylinders, which is also a part of the formula. In this case we want to the power of an engine (in kW).
+Each member of the population is evaluated using a fitness function that computes the power output of engine. We will predefine the number of cylinders, which is also a part of the formula. In this case we want to calculate the power of an engine (in kW).
 
 
 $$
-Power(p) = \frac{(\operatorname{Number of cylinders}) \cdot \operatorname{MEP} \cdot \operatorname{Strokelength} \cdot (\frac{\pi}{4}) \cdot (\operatorname{Bore}^2) \cdot \operatorname{Revs}}{2 \cdot 33000}
+Power(p) = \frac{(\operatorname{Number of cylinders}) \cdot \operatorname{MEP} \cdot \operatorname{Strokelength} \cdot (\frac{\pi}{4}) \cdot (\operatorname{Bore}^2) \cdot \operatorname{Revs}}{\operatorname{c} \cdot 33000}
 $$
-
+Please note that there is a constant "c" in the formula, which can take either the value of 1 or 2. The value of 1 is used when calculating the power of a 2-stroke engine, while the value of 2 is used for 4-stroke engines.
 
 ### Parent Selection
 We use a Tournament Selection. It involves randomly selecting a subset of individuals from the population (we can choose the tournament size in the function call), and then choosing the best individual from that subset as a parent for the next generation. Here's how this is implemented in the code:
@@ -469,5 +469,5 @@ obtaining the following results:
 
 ![[Pasted image 20230614083057.png]]
 
-The effectiveness of the genetic algorithm becomes evident as we observe consistent improvement in the results with each successive generation. On average, we achieve a notable increase to approximately 185kw. However, it's worth noting that the algorithm's convergence rate is relatively slow due to the utilization of a small tournament size.
+The effectiveness of the genetic algorithm becomes evident as we observe consistent improvement in the results with each successive generation. On average, we achieve a notable increase to approximately 185kw. In general, this value would be relatively high, however, it is important to consider that the formula does not account for any power losses.It is also worth noting that the algorithm's convergence rate is relatively slow due to the utilization of a small tournament size.
 
