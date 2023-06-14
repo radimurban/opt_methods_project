@@ -133,6 +133,11 @@ if (bestres.getFitness() - oldFitness < 0.000001) {
 }
 ```
 
+#### Convergence
+This microGA implementation converges to a local optimum. When comparing microGA and full GA with mutation rate 0.4 and 0.7, we see that mutation allows the algorithm to escape local minima but does not guarantee convergence to a global maximum. You can see the average of five simulations with different mutation rates.
+
+<img src="/Graphs/mutation_00.png" alt="Alt text" title="Mutation rate 0.0">
+
 
 #### Sample Results with Mutation Rate 0.0 (microGA)
 Setting:

@@ -22,7 +22,7 @@ public class ResourceAllocation {
 			{3, 2, 1, 0, 1, 3},
 			{0, 2, 1, 3, 0, 1} };
 			double sellingPrices[] = new double[] {120, 180, 148.5, 144};
-		Manager man = new Manager(NUMBER_RESOURCES, prices, RESOURCE_LIMIT, POPULATION_SIZE, NUMBER_PRODUCTS, neededResources, sellingPrices, 0.7);
+		Manager man = new Manager(NUMBER_RESOURCES, prices, RESOURCE_LIMIT, POPULATION_SIZE, NUMBER_PRODUCTS, neededResources, sellingPrices);
 		
 		man.populateR(POPULATION_SIZE);
 		man.populateP(3, neededResources, sellingPrices);
@@ -33,25 +33,27 @@ public class ResourceAllocation {
         // Evolution loop
 		int generation = 0;
 		double oldFitness = 0;
+		System.out.println("----------");
 		while (generation < MAX_GENERATIONS) {
 
 			// Sort the population by fitness in descending order
 			Arrays.sort(man.getResource(), Comparator.comparingDouble(Resource::getFitness).reversed());
 			
 			// Print attributes
-			System.out.println("Generation: " + generation);
+			//System.out.println("Generation: " + generation);
 			Resource bestres = man.getResource()[0];
-			System.out.println("Best allocation: " + Arrays.toString(bestres.getResources()));
-			System.out.println("Cost: " + bestres.getCost());
-			System.out.println("Profit: " + man.evalProfit(bestres)[0]);
-			System.out.println("Penalty: " + man.evalProfit(bestres)[1]);
-			System.out.println("Fitness: " + bestres.getFitness());
+			//System.out.println("Best allocation: " + Arrays.toString(bestres.getResources()));
+			//System.out.println("Cost: " + bestres.getCost());
+			//System.out.println("Profit: " + man.evalProfit(bestres)[0]);
+			//System.out.println("Penalty: " + man.evalProfit(bestres)[1]);
+			System.out.println(bestres.getFitness() + ",");
 			
+			/*
 			if (bestres.getFitness() - oldFitness < 0.000001) {
 				break;
 			}
 			oldFitness = bestres.getFitness();
-
+			*/
 			
             // Select the elite resources for the next generation
             int eliteSize = (int) (POPULATION_SIZE * ELITISM_RATE);
@@ -86,16 +88,17 @@ public class ResourceAllocation {
             
             generation++;
         }
-		
-		if (generation == MAX_GENERATIONS+1) {
-			System.out.println("Generation: " + generation);
+		/*
+		if (generation == MAX_GENERATIONS) {
+			//System.out.println("Generation: " + generation);
 			Resource bestres = man.getResource()[0];
-			System.out.println("Best allocation: " + Arrays.toString(bestres.getResources()));
-			System.out.println("Cost: " + bestres.getCost());
-			System.out.println("Profit: " + man.evalProfit(bestres)[0]);
-			System.out.println("Penalty: " + man.evalProfit(bestres)[1]);
-			System.out.println("Fitness: " + bestres.getFitness());			
+			//System.out.println("Best allocation: " + Arrays.toString(bestres.getResources()));
+			//System.out.println("Cost: " + bestres.getCost());
+			//System.out.println("Profit: " + man.evalProfit(bestres)[0]);
+			//System.out.println("Penalty: " + man.evalProfit(bestres)[1]);
+			System.out.println(bestres.getFitness());			
 		}
+		*/
 
 	}
 }
