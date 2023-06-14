@@ -1,0 +1,160 @@
+{
+  "main": {
+    "id": "e90e82d9545a106e",
+    "type": "split",
+    "children": [
+      {
+        "id": "14b28d865c885f67",
+        "type": "tabs",
+        "dimension": 99.99999999999999,
+        "children": [
+          {
+            "id": "82b37a0e562c1f0e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "src/report/The (Micro) Genetic Algorithm - generally and specifically.md",
+                "mode": "source",
+                "source": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "952d2009cddf6fab",
+    "type": "split",
+    "children": [
+      {
+        "id": "b05351b2b66f0bfc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7376b4ea5b9f5868",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ffe001b1b786f0d4",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "d8745011cc34b307",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "fb40c4ed103230b0",
+    "type": "split",
+    "children": [
+      {
+        "id": "f41fa898b4c1bf4f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8b9fa05e9c533766",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "src/report/The (Micro) Genetic Algorithm - generally and specifically.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "7d44649f2181acae",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "src/report/The (Micro) Genetic Algorithm - generally and specifically.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "feb53cf4857fa2d8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "04acb87bafda01ec",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "src/report/The (Micro) Genetic Algorithm - generally and specifically.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "82b37a0e562c1f0e",
+  "lastOpenFiles": [
+    "src/engine_power/prva.class",
+    "src/report/plot-results-rene.png",
+    "src/report/plot-results_oda.png",
+    "src/report/plot-results.png",
+    "src/report/Pasted image 20230614083057.png",
+    "src/report/The (Micro) Genetic Algorithm - generally and specifically.md",
+    "src/report/standard-micro-ga.png"
+  ]
+}
