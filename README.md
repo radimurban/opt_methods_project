@@ -50,68 +50,19 @@ We will pre-define the number of generations we want to optimize over and abort 
 Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximal power output of an engine. 
 
 ### Population
-Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = MEP, stroke, bore , revs$ of design variables that define a part of an aircraft. The type of encoding used to represent the population in the algorithm is called value encoding, since we have specific values for every gene. The dimensions correspond to:
-
-- $MEP$ is a measure of the average pressure exerted by the gases in the combustion chamber of an engine during the power stroke ($psi$)  $\in \[170; 280\]$
-- $Strokelength$ is the distance that the piston travels in the cylinder between the top dead center (TDC) and the bottom dead center (BDC) positions. ($ft$)  $\in \[0.27; 0.3\]$
-- $Bore$ is the diameter of the cylinder in which the piston moves ($in$)  $\in \[2.9; 3.5\]$
-- $Revs$ refer to the number of times an engine's crankshaft rotates in a given period of time. ($rpm$)  $\in \[0; 1\]$
-For the example we choose a specific range of values that represent the specification of a typical diesel engine. 
+Population is a set of chromosomes (essentially a vector) respresenting the mentioned parameters that influence power.
 
 ### Fitness function
 Each member of the population is evaluated using a fitness function that computes the power output of engine. We will predefine the number of cylinders, which is also a part of the formula. In this case we want to maximize the power of an engine.
 
-$$
-((\operatorname{Number of cylinders}) \cdot \operatorname{MEP} \cdot \operatorname{Strokelength} \cdot (\pi/4) \cdot (\operatorname{Bore}^2) \cdot \operatorname{Revs}))/(\operatorname{c} \cdot 33000)
-$$
-
-With this formula we calculate the power of an engine in ($kW$). The constant c in the formula is 1 for a two stroke engine and 2 for a four stroke engine. The constant 33000 is used to convert the result to ($kW$)
 
 ### Parent Selection
 We use a Tournament Selection. It involves randomly selecting a subset of individuals from the population (we can choose the tournament size in the function call), and then choosing the best individual from that subset as a parent for the next generation. Here's how this is implemented in the code:
 
-```java
- private static double[] tournamentSelection(double[][] population, double[] fitness, int tournamentSize) {
-        int[] tournamentIndices = new int[tournamentSize];
-
-        // Randomly select individuals for the tournament
-        for (int i = 0; i < tournamentSize; i++) {
-            tournamentIndices[i] = random.nextInt(population.length);
-        }
-
-        // Find the fittest individual in the tournament
-        int fittestIndex = tournamentIndices[0];
-        double fittestFitness = fitness[fittestIndex];
-        for (int i = 1; i < tournamentSize; i++) {
-            int currentIndex = tournamentIndices[i];
-            double currentFitness = fitness[currentIndex];
-
-            if (currentFitness > fittestFitness) {
-                fittestIndex = currentIndex;
-                fittestFitness = currentFitness;
-            }
-        }
-
-        // Return the fittest individual
-        return population[fittestIndex];
-    }
-
-```
 ### Generating Children
 
 We generate children by randomly mixing up the attributes of parents with the following program (Unifrom Crossover with randomly generated mask):
 
-```java
-
-private static double[] crossover(double[] parent1, double[] parent2) {
-        double[] offspring = new double[4];
-        for (int i = 0; i < 4; i++) {
-            offspring[i] = random.nextBoolean() ? parent1[i] : parent2[i];
-        }
-
-        return offspring;
-    }
-```
 
 ### Stopping Criteria
 Maximal number of generations will be pre-defined.
