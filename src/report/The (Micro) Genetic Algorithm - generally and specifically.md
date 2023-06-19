@@ -390,10 +390,10 @@ How quickly the algorithm (in terms of generations) finds increases the found ma
 
 ## 4. Optimizing the power of an engine
 
-Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximal power output of an engine. 
+Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximal power output of an internal combustion engine. 
 
 ### Population
-We will represent each candidate solution (i.e. chromosome) in the population is represented by a vector $p = (\operatorname{MEP}, \operatorname{stroke}, \operatorname{bore} , \operatorname{revs})$ of design variables that describe a part of an engine. The type of encoding used to represent the population in the algorithm is called value encoding, since we have specific values for every gene. The dimensions correspond to:
+We will represent each candidate solution (i.e. chromosome) in the population by a vector $p = (\operatorname{MEP}, \operatorname{stroke}, \operatorname{bore} , \operatorname{revs})$ of design variables that describe a part of an engine. The type of encoding used to represent the population in the algorithm is called value encoding, since we have specific values for every gene. The dimensions correspond to:
 
 - $\operatorname{MEP}$ is a measure of the average pressure exerted by the gases in the combustion chamber of an engine during the power stroke. $\in [170; 280]$ measured in $(psi)$
 - $\operatorname{Strokelength}$ is the distance that the piston travels in the cylinder between the top dead center (TDC) and the bottom dead center (BDC) positions. $\in [0.27; 0.3]$ measured in $(ft)$
