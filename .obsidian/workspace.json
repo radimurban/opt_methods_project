@@ -6,7 +6,6 @@
       {
         "id": "14b28d865c885f67",
         "type": "tabs",
-        "dimension": 99.99999999999999,
         "children": [
           {
             "id": "82b37a0e562c1f0e",
@@ -16,7 +15,7 @@
               "state": {
                 "file": "src/report/The (Micro) Genetic Algorithm - generally and specifically.md",
                 "mode": "source",
-                "source": true
+                "source": false
               }
             }
           }
@@ -149,12 +148,16 @@
   },
   "active": "82b37a0e562c1f0e",
   "lastOpenFiles": [
-    "src/engine_power/prva.class",
-    "src/report/plot-results-rene.png",
-    "src/report/plot-results_oda.png",
-    "src/report/plot-results.png",
-    "src/report/Pasted image 20230614083057.png",
+    "src/report/The (Micro) Genetic Algorithm - generally and specifically.pdf",
+    "src/report/asdf.pdf",
+    "src/report/Project_for_Opt__Met__for_Eng_.pdf",
     "src/report/The (Micro) Genetic Algorithm - generally and specifically.md",
-    "src/report/standard-micro-ga.png"
+    "src/report/plot-results-rene.png.crdownload",
+    "src/report/plot-results-rene.png",
+    "src/report/plot-results.png",
+    "src/report/plot-results_oda.png",
+    "src/report/standard-micro-ga.png",
+    "src/engine_power/prva.class",
+    "src/report/Pasted image 20230614083057.png"
   ]
 }

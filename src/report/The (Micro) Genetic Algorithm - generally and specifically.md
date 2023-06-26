@@ -467,7 +467,7 @@ We ran the program five times with the following fixed parameters:
 - and population size: 100
 obtaining the following results: 
 
-![[Pasted image 20230614083057.png]]
+![[plot-results-rene.png]]
 
 The effectiveness of the genetic algorithm becomes evident as we observe consistent improvement in the results with each successive generation. On average, we achieve a notable increase to approximately 185kw. In general, this value would be relatively high, however, it is important to consider that the formula does not account for any power losses.It is also worth noting that the algorithm's convergence rate is relatively slow due to the utilization of a small tournament size.
 
