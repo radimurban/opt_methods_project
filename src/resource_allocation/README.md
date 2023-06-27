@@ -63,7 +63,7 @@ public Resource select() {
 ```
 
 #### Next Generation
-The next generation cosists of the elite of the previous poulation and the children of any population members. The default elitism reate is 0.2 and this means that 20% of the best members of the population are propagated to the next generation (survival of the fittest). 
+The next generation consists of the elite of the previous population and the children of any population members. The default elitism rate is 0.2 and this means that 20% of the best members of the population are propagated to the next generation (survival of the fittest). 
 
 ```java
 int eliteSize = (int) (POPULATION_SIZE * ELITISM_RATE);
@@ -73,7 +73,7 @@ int eliteSize = (int) (POPULATION_SIZE * ELITISM_RATE);
 }
 ```
 
-Any member of the current population can generate childen. This decision was made to not lose too many values along the process, since a microGA only deals with crossover. Values from non-elitist parents may improve the overall fitness, e.g. by decreasing the number of unused materials.
+Any member of the current population can generate children. This decision was made to not lose too many values along the process, since a microGA only deals with crossover. Values from non-elitist parents may improve the overall fitness, e.g. by decreasing the number of unused materials.
 For generating children, we use two-point crossover. In this problem, the multi-point crossover makes more sence that a single point crossover. All the products require different types and amoutns of resources and it is better to better to mix up the current values so there is more room for new combinations. The optimal number of crossover points depend also in the nature of the products. As an example, If each product only required one unit of one resource then also a single point crossover could be suffient. The more intrigue the products get the more you have to adjust the number of crossover points. In the comparisson with the standard genetic algorithm this makes sense. For the mGA we can only use the values that we get during the initialization and they cannot be mutated. This also means that a higher number of first generation resources is better (and necessary) for mGA beacause you have more values to choose from during crossover. For this implementation it is also necessary to keep track of the new cost and the number of resources. Upon creating the child we check in a do-while loop that the sum of the resources is under the limit.
 
 ```java
@@ -122,7 +122,7 @@ public void mutate(Resource res) {
 }
 ```
 
-The value of the mutation rate works as a threshold value in an if statement. If the generated double is less than or equal to the mutation rate, the method mutate is called. In the mutate method a random index is chosen. To maintain consistency of the values among the function calls, we have to subtract the cost of the current number of the resource from the total cost and then, after having the mutated value we again have to add the cost to the total cost. As mentioned above, this is purely for testing purposes agains the full GA and we are aware that a microGA does not implement any mutation.
+The value of the mutation rate works as a threshold value in an if statement. If the generated double is less than or equal to the mutation rate, the method mutate is called. In the mutate method a random index is chosen. To maintain consistency of the values among the function calls, we have to subtract the cost of the current number of the resource from the total cost and then, after having the mutated value we again have to add the cost to the total cost. As mentioned above, this is purely for testing purposes against the full GA and we are aware that a microGA does not implement any mutation.
 
 #### Termination
 This implementation of a microGA for resource allocation always terminates. The main while loop ends after at most a given number of generations (initialized in the code to be 100) or when the change in the fitness of the best resource allocation in the current and the previous generation is equal. This property is implemented in the code as follows due to possible machine numbers imprecision when computing with doubles (machine precision).
