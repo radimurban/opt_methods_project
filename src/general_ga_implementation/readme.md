@@ -1,9 +1,7 @@
 # The (Micro) Genetic Algorithm - generally and specifically
 
-In this folder, e implement the (Micro) Genetic Algorithm and use this implementation as basis
+> In this folder, we implement the (Micro) Genetic Algorithm and use this implementation as basis
 to solve three various problems.
-
-## What is GA?
 
 The genetic algorithm is a method for solving optimization problems that is based on natural selection. The genetic algorithm repeatedly improves a _population_ of _individuals_. At each iteration,
 the GA selects parents from the current population of individuals (_ranking_), which then produce
