@@ -13,7 +13,8 @@ There are two classes, Resource and Product. Each population contains n resource
 Each Resource is evaluated by a fitness function that assigns a fitness score. Since we live in a capitalist society, our goal is to maximize the profit while minimizing the cost. We also want to produce as much as possible so we encourage filling up the warehouse with useful parts. The fitness is computed as follows:
 
 $$ 
-F = \frac{\text{maximal\_profit}}{\text{total\_cost}}  (\text{npw} - \text{nu\_penalty}) * \text{normalizationConstant}$$
+F = \frac{\text{maximal profit}}{\text{total cost}}  (\text{npw} - \text{nu-penalty}) * \text{normalizationConstant}
+$$
 
 ```java
 public double[] evalProfit(Resource res) {
