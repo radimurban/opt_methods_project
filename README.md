@@ -1,75 +1,155 @@
-# Project for _Optimization Methods for Engineers_
+# The (Micro) Genetic Algorithm - generally and specifically
 
-This repository implements generic Genetic Algorithm and applies it to 3 various problems.
+> In this folder, we implement the (Micro) Genetic Algorithm and use this implementation as basis
+to solve three various problems.
 
-## Genetic Algorithm Description
+The genetic algorithm is a method for solving optimization problems that is based on natural selection. The genetic algorithm repeatedly improves a _population_ of _individuals_. At each iteration,
+the GA selects parents from the current population of individuals (_ranking_), which then produce
+the children for the next generation (_breeding_) using crossover and mutation (if this is omitted, we
+talk about **Micro GA**). Over many generations, the population converges to an optimal solution by
+replacing the weakest individuals by the children. This process can be easily described using the
+following flowchart:
 
-See more about GA and the general implementation [here](/src/general_ga_implementation).
+<img width="1673" alt="standard-micro-ga" src="https://github.com/radimurban/opt_methods_project/assets/78273894/ff311183-31f7-41c2-8118-088e2215380c">
 
-1. Create random population of $N$ individuals $p_n$ (initialization)
-2. Select parents from population
-3. Generate children using mutation and crossover simplicity: again $N$ individuals
-4. Check stopping criteria. If not met: goto 2 .
 
-## Problem 1: Optimal allocation of resources (OAR)
-Finding the optimal allocation of resources in a supply chain to minimize costs and maximize efficiency. Detailed problem description and solution are [here](/src/resource_allocation).
+To summarize: Population is the set of all the individuals (also called chromosomes). Each
+chromosome carries some information about itself stored and segmented into genes.
+We now implement the Micro GA on a high level by specifying the necessary aspects of the algorithm.
+We use this implementation as a base to our concrete problems later on in the report.
 
-### Population
-There are two classes, Resource and Product. Each population contains n resources and m products. 
 
+
+### Population Representation & Initialization
+The representation of the population can be encoded in many different ways. Most common are:
+- **Binary/Octal/Hexadecimal Encoding**
+- **Permutation Encoding** - having a predefined set of genes, each chromosome is a permutation
+of this set and each gene is represented at most once.
+- **Value Encoding** - genes simply represent the specific value.
+- **Tree Encoding** - usually used to encode programs or expression. Representation of objects,
+where order is important.
+
+We initialize population of $N$ individuals $p_n$ (initialization), where $p_n$ is a bitstring of length $L$.
+
+```java
+public Population(int size) {
+    individuals = new Chromosome[size];
+    random = new Random();
+    for (int i = 0; i < size; i++) {
+        int[] genes = new int[10];
+        for (int j = 0; j < genes.length; j++) {
+            genes[j] = random.nextInt(2);
+        }
+        individuals[i] = new Chromosome(genes);
+    }
+}
+```
 ### Fitness Function
-Each Resource is evaluated by a fitness function that assigns a fitness score. Since we live in a capitalist society, our goal is to maximize the profit while minimizing the cost. We also want to produce as much as possible so we encourage filling up the warehouse with useful parts. 
+This is the metric for choosing the parents and individual to be replaced by the child(ren). In this implementation the fitness function is the number of bits in individual that are 1. 
 
-### Parent Selection
-We choose two parents. Both are Resources maximizing the fitness function among 5 randomly selected Resources.
+$$
+F: p_n \mapsto \sum_{i = 0}^{L-1} p_{n_i} \quad \text{where } p_{n_i} \text{ is the i-th bit in } p_n
+$$
 
-### Generating Children
-We use two-point crossover. It is also necessary to keep track of the new cost and the number of resources. Upon creating the child we check in a do-while loop that the sum of the resources is under the limit.
+### Parents Selection
+Based on the fitness function, these are many methods to select children, such as:
+- **Tournament Selection** - choosing individuals randomly and selecting the best one among them.
+- **Rank Selection** - sort candidate chromosomes by their fitness value. These ranks will be used in a roulette wheel style selection.
+- **Roulette Wheel Selection** - let $S$ be a sum of the fitness function for all candidate chromosomes and $r \in[0, S]$ randomly generated number. Then iterate through candidates and compute the sum of their fitness. Choose the candidate for which the sum $=r$ was achieved.
 
-## Problem 2: Optimizing the design of an aircraft (ODA)
+In this simple implementation, we use the tournament methods. To choose one parent, we randomly choose $x$ (we use 5) individuals from the population and select the one with the highest fitness function.
+```java
+public Chromosome select() {
+  Chromosome best = null;
+  for (int i = 0; i < 5; i++) {
+      Chromosome individual = individuals[random.nextInt(individuals.length)];
+      if (best == null || individual.getFitness() > best.getFitness()) {
+          best = individual;
+      }
+  }
+  return best;
+}
+```
 
-Optimizing the design of an aircraft to maximize lift. Detailed problem description and solution are [here](/src/airplane_design).
 
-### Population
-Let's assume that each candidate solution (i.e., chromosome) in the population is represented by a vector $p = V, S, \alpha , e, AR$ of design variables that define a part of an aircraft.
+### Children Generation
+Crossover\&Mutation specify how the algorithm uses the parents to obtain the children (in this implementation we omit the mutation step as we are focusing on Micro GA). For crossover, there are many options and the following are the most common ones:
 
-### Fitness function
-Each chromosome is evaluated by a fitness function that computes its performanceand assigns a fitness score. In this case we want to compute the maximum lift.
+- **Single/Multi-Point Crossover** - We choose a point $k \in [1,n-1]$ where $n$
+ is number of genes and we mix the parents at this midpoint to obtain the children (offspring). For multi-point crossover just assume multiple "midpoints".
 
-### Parent Selection
-We will choose two parents. Both as chromosome maximizing the fitness function among 10 randomly selected chromosomes.
-Randomness might make sense because for example of different conditions for the plane (meaning, the chromosome maximizing the fitness function might not maximize it in all conditions).
+- **Uniform Crossover** - This is a generalization of the multi-point crossover. Assume a bitmask with the same length as the parents chromosomes. A $1$
+ in the bitmask on the position $p$
+ can represent that the $p$-th bit in the first child will be inherited from the first parent and in the second child from the second parent and vice versa for bit 0 in the bitmask.
+- and other like Partially Mapped Crossover, Order Crossover, Shuffle Crossover...
 
-### Generating Children
-We generate children as follows. To optimize but also to keep randomness in the process we _randomly_ mix the genes of the two parents. 
+We choose to implement **one-point crossover**, i.e. randomly generate a midpoint $\in [0;L]$ and generate child by taking bits from 0 to `midpoint` from 'parent1' and the rest from 'parent2'.
+
+```java
+public Chromosome crossover(Chromosome other) {
+    int[] childGenes = new int[genes.length];
+    int midpoint = random.nextInt(genes.length);
+    for (int i = 0; i < midpoint; i++) {
+        childGenes[i] = genes[i];
+    }
+    for (int i = midpoint; i<genes.length; i++) {
+      childGenes[i] = other.genes[i];
+    }
+    return new Chromosome(childGenes);
+}
+```
+We then replace this new child with the weakest individual (individual) with the lowest fitness function.
+```java
+public void replaceWorst(Chromosome child) {
+    int worstIndex = 0;
+    double worstFitness = Double.MAX_VALUE;
+    for (int i = 0; i < individuals.length; i++) {
+        if (individuals[i].getFitness() < worstFitness) {
+            worstIndex = i;
+            worstFitness = individuals[i].getFitness();
+        }
+    }
+    individuals[worstIndex] = child;
+}
+```
 
 ### Stopping Criteria
-We will pre-define the number of generations we want to optimize over and abort after achieving this number.
+As seen in the flowchart above, stopping criteria is how we determine whether we are done. Factors
+can be:
+- **Pre-defined number of generations**
+- **Reaching desired value of a fitness function**
+- **Convergence** - essentially not improving by a significant amount for given number of generations.
+For this implementation we only simply check pre-defined number of generations (=iterations).
+
+```java
+while (generation <= MAX_GENERATIONS) {
+
+    /*
+     * Main Algorithm Loop
+    */
+    
+    generation++;
+}
+```
+
+
+## Problem 1: Optimal allocation of resources
+> A practical and real-world example of optimizing resource allocation in a supply chain to minimize
+costs and maximize efficiency could be in the production of a consumer electronics product, such as a
+smartphone. In this example, the supply chain involves several stages, including the sourcing of raw
+materials, manufacturing of components, assembly of the final product, and distribution to retailers.
+
+Detailed problem description and solution are [here](/src/resource_allocation).
+
+## Problem 2: Optimizing the design & finding optimal conditions for an aircraft
+> We model this problem as having a few components&conditions for which we want to maximize the
+lift force. To limit the ranges of the components, we assume we are modeling this problem on an
+airliner (e.g. Boeing 777 and similar).
+
+Detailed problem description and solution are [here](/src/airplane_design).
 
 ## Problem 3: Optimizing the power of an engine
-Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve maximal power output of an engine. 
+> Optimizing the mean effective pressure(MEP), stroke, bore and revolutions per minute to achieve
+maximal power output of an internal combustion engine.
 
-### Population
-Population is a set of chromosomes (essentially a vector) respresenting the mentioned parameters that influence power.
-
-### Fitness function
-Each member of the population is evaluated using a fitness function that computes the power output of engine. We will predefine the number of cylinders, which is also a part of the formula. In this case we want to maximize the power of an engine.
-
-
-### Parent Selection
-We use a Tournament Selection. It involves randomly selecting a subset of individuals from the population (we can choose the tournament size in the function call), and then choosing the best individual from that subset as a parent for the next generation. Here's how this is implemented in the code:
-
-### Generating Children
-
-We generate children by randomly mixing up the attributes of parents with the following program (Unifrom Crossover with randomly generated mask):
-
-
-### Stopping Criteria
-Maximal number of generations will be pre-defined.
-
-### Sample Results
-
-We ran the program five times with the following fixed parameters: number of cylinders: 4, constant "c" from the fitness formula: 2 (representing a four-stroke engine), tournament size: 5, number of generations: 100, and population size: 100, obtaining the following results: 
-<img width="573" alt="image" src="https://github.com/radimurban/opt_methods_project/assets/115483491/ce0536c8-86ab-42be-8893-890eb00e32b2">
-The effectiveness of the genetic algorithm becomes evident as we observe consistent improvement in the results with each successive generation. On average, we achieve a notable increase to approximately 185kw. However, it's worth noting that the algorithm's convergence rate is relatively slow due to the utilization of a small tournament size.
-
+Detailed problem description and solution are [here](/src/engine_power).
