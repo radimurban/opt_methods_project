@@ -16,30 +16,30 @@ $$ (maximal profit / total cost) * (number of parts in the warehouse - penalty f
 
 ```java
 public double[] evalProfit(Resource res) {
-    	Arrays.sort(products, Comparator.comparingDouble(Product::getPrice).reversed());
-    	double profit = 0.0;
-    	int[] localCopy = Arrays.copyOf(res.getResources(), res.getResources().length);
-        
-    	for (int i = 0; i < products.length; i++) {
-    		while(isAvailable(products[i].getNeededResources(), localCopy)) {
-    			Product product = products[i];
-    			Arrays.setAll(localCopy, j -> localCopy[j] - product.getNeededResources()[j]);
-    			profit += product.getPrice();
-    		}
-    	}
-    	double penalty = Arrays.stream(localCopy).sum();
-    	return new double[]{profit, penalty};
-    }
-    
-    private boolean isAvailable(int[] needed, int[] available) {
-    	assert needed.length == available.length;
-    	for (int i = 0; i < available.length; i++) {
-    		if (available[i] - needed[i] < 0) {
-    			return false;
-    		}
-    	}
-    	return true;
-    }
+	Arrays.sort(products, Comparator.comparingDouble(Product::getPrice).reversed());
+	double profit = 0.0;
+	int[] localCopy = Arrays.copyOf(res.getResources(), res.getResources().length);
+	
+	for (int i = 0; i < products.length; i++) {
+		while(isAvailable(products[i].getNeededResources(), localCopy)) {
+			Product product = products[i];
+			Arrays.setAll(localCopy, j -> localCopy[j] - product.getNeededResources()[j]);
+			profit += product.getPrice();
+		}
+	}
+	double penalty = Arrays.stream(localCopy).sum();
+	return new double[]{profit, penalty};
+	}
+	
+	private boolean isAvailable(int[] needed, int[] available) {
+	assert needed.length == available.length;
+	for (int i = 0; i < available.length; i++) {
+		if (available[i] - needed[i] < 0) {
+			return false;
+		}
+	}
+	return true;
+}
 ```
 
 Maximizing the profit or minimizing the cost leads to higher fitness score. The fitness function consists of the quotient of the profit and the cost multiplied with the overall available resources penalized with the number of unneeded resources. The evalProfit function computes the profit from products made out of the available resources. It starts with the most expensive product first and when there are no more enough resources it continues with the next most expensive product. The resources that are left at the end are not enough to create any of the products and are used as a penalty since the resources have cost but no profit.
@@ -97,7 +97,7 @@ public Resource crossover(Resource parent1, Resource parent2) {
         }
         
         return new Resource(childResources, varCost);
-    }
+}
 ```
 
 For the comparison of a microGa and a full GA it is also possible to enter a mutation rate upon creating a Manager object for testing. The mutation of one randomly chosen value is implemented as follows in the code.
@@ -136,21 +136,17 @@ if (bestres.getFitness() - oldFitness < 0.000001) {
 #### Convergence
 This microGA implementation converges to a local optimum. When comparing microGA and full GA with mutation rate 0.4 and 0.7, we see that mutation allows the algorithm to escape local minima but does not guarantee convergence to a global maximum. You can see the average of five simulations with different mutation rates.
 
-<img src="/src/resource_allocation/Graphs/mutation_00.png" alt="Mutation rate 0.0" title="Mutation rate 0.0">
-
-<img src="/src/resource_allocation/Graphs/mutation_04.png" alt="Mutation rate 0.4" title="Mutation rate 0.4">
-
-<img src="/src/resource_allocation/Graphs/mutation_07.png" alt="Mutation rate 0.7" title="Mutation rate 0.7">
-
+<img width="803" alt="image" style="margin-left:auto;" src="https://github.com/radimurban/opt_methods_project/assets/78273894/533d3c7b-a53b-469c-8d8f-5018895800df">
 
 #### Sample Results with Mutation Rate 0.0 (microGA)
 Setting:
-POPULATION_SIZE = 400;
-NUMBER_RESOURCES = 6;
-NUMBER_PRODUCTS = 4;
-MAX_GENERATIONS = 100;
-RESOURCE_LIMIT = 100;
-ELITISM_RATE = 0.2;
+
+`POPULATION_SIZE` = 400; \
+`NUMBER_RESOURCES` = 6; \
+`NUMBER_PRODUCTS` = 4; \
+`MAX_GENERATIONS` = 100; \
+`RESOURCE_LIMIT` = 100; \
+`ELITISM_RATE` = 0.2; 
 
 ```
 Generation: 0
