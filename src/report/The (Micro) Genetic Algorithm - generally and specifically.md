@@ -127,14 +127,18 @@ Both of these classes are managed by a `Manager`. The main purpose of the `Manag
 Each `Resource` is evaluated by a fitness function that assigns a fitness score. Since we live in a capitalist society, **our goal is to maximize the profit while minimizing the cost**. We also want to produce as much as possible so we encourage filling up the warehouse with useful parts. The fitness is computed as follows:
 
 $$ 
-F = \frac{\operatorname{maximal\_profit}}{\operatorname{total\_cost}}  (\operatorname{npw} - \operatorname{nu\_penalty})$$
+F = \frac{\operatorname{maximal\_profit}}{\operatorname{total\_cost}}  (\operatorname{npw} - \operatorname{nu\_penalty}) * \operatorname{normalizationConstant}$$
 
 where:
 - $\operatorname{npw}$ - **n**umber of **p**arts in the **w**arehouse
 - $\operatorname{nu\_penalty}$ - **penalty** for parts **n**ot **u**sed in manufacturing the products
+- $\operatorname{normalizationConstant}$ - used to normalize the result of the fitness function to the interval [0,1]
+
 
 $F$ is the quotient of the profit and the cost. Maximizing the profit or minimizing the cost leads to higher fitness score. Multiplying with the overall available resources penalized with the number of unneeded resources. 
 The `evalProfit` function computes the profit from products made out of the available resources. It starts with the most expensive product first and when there are no more enough resources it continues with the next most expensive product. The resources that are not left at the end are not enough to create any of the products and are used as a penalty since the resources have cost but no profit.
+
+The normalizationConstant is used to normalize the result of the fitness function to the interval [0,1]. For the sake of simplicity for this project the selling prices of the products are exactly three times the cost of their resources. The theoretical maximum value of the fitness function is 300. The left factor's maximum is reached when all the available resources are used to produce something and since the selling price is three times greater, the maximum is thus 3. For the second factor, the maximal value is attained when the resource warehouse is full (the resource capacity is fully reached) and there is no penalty for unnecessary resources. In the default case the resource capacity is set to 100. Since it is not always possible to fully utilize the resource capacity for all combinations of given products, we call the maximum value theoretical. The theoretical maximum can only be reached if it is possible to fill the resource capacity with penalty equal to zero. The result of the fitness function in the default case is multiplied by 1/300 (the reciprocal of the maximum theoretical value) for the reasons described above.
 
 ```java
 public double[] evalProfit(Resource res) {
@@ -180,7 +184,18 @@ public Resource select() {
 }
 ```
 
-### Generating Children
+### Next Generation
+The next generation consists of the **elite** of the previous population and the children of any population members. The default `ELITISM_RATE` is 0.2 and this means that 20% of the best members of the population are propagated to the next generation (survival of the fittest). 
+
+```java
+int eliteSize = (int) (POPULATION_SIZE * ELITISM_RATE);
+    Resource newPopulation[] = new Resource[POPULATION_SIZE];
+    for (int i = 0; i < eliteSize; i++) {
+        newPopulation[i] = man.getResource()[i];
+}
+```
+
+Any member of the current population can generate children. This decision was made to not lose too many values along the process, since a microGA only deals with crossover. Values from non-elitist parents may improve the overall fitness, e.g. by decreasing the number of unused materials.
 We use **two-point crossover**. For this problem, the multi-point crossover makes more sense than a single point crossover. All the products require different types and amounts of resources and it is better to better to mix up the current values so there is more room for new combinations. The optimal number of crossover points depend also on the nature of the products. As an example, if each product only required one unit of one resource then also a single point crossover could be sufficient. The more intrigue the products get the more you have to adjust the number of crossover points. In the comparison with the standard genetic algorithm this makes sense. For the mGA we can only use the values that we get during the initialization and they cannot be mutated. This also means that a higher number of first generation resources is better (and necessary) for mGA because there are more values to choose from during crossover. For this implementation. it is also necessary to keep track of the new cost and the number of resources. Upon creating the child we check in a do-while loop that the sum of the resources is under the limit.
 
 ```java
@@ -207,50 +222,62 @@ public Resource crossover(Resource parent1, Resource parent2) {
     }
 ```
 
+For the comparison of a **microGa** and a **full GA** it is also possible to enter a mutation rate upon creating a Manager object for testing. The mutation of one randomly chosen value is implemented as follows in the code.
+
+```java
+do {
+    child = man.crossover(parent1, parent2);
+    // Only for testing purposes against a full GA
+    // Default mutation rate is 0.0
+    if (RANDOM.nextDouble() <= man.getMutationRate()) {
+        man.mutate(child);
+    }
+} while (Arrays.stream(child.getResources()).sum() > RESOURCE_LIMIT);
+```
+
+```java
+public void mutate(Resource res) {
+    int index = random.nextInt(res.getResources().length);
+    res.setCost(res.getCost() - res.getResources()[index] * prices[index]);
+    res.getResources()[index] = random.nextInt(limit);
+    res.setCost(res.getCost() + res.getResources()[index] * prices[index]);
+}
+```
+
+The value of the **mutation rate** works as a threshold value in an if statement. If the generated double is less than or equal to the mutation rate, the method mutate is called. In the mutate method a random index is chosen. To maintain consistency of the values among the function calls, we have to subtract the cost of the current number of the resource from the total cost and then, after having the mutated value we again have to add the cost to the total cost. As mentioned above, this is purely for testing purposes against the full GA and we are aware that a microGA does not implement any mutation.
+
+#### Termination
+This implementation of a microGA for resource allocation always terminates. The main while loop ends after at most a given number of generations (initialized in the code to be 100) or when the change in the fitness of the best resource allocation in the current and the previous generation is equal. This property is implemented in the code as follows due to possible machine numbers imprecision when computing with doubles (machine precision).
+
+```java
+if (bestres.getFitness() - oldFitness < 0.000001) {
+	break;
+}
+```
+
+#### Convergence
+This microGA implementation converges to a local optimum. When comparing microGA and full GA with mutation rate **0.4** and **0.7**, we see that mutation allows the algorithm to escape local minima but does not guarantee convergence to a global maximum. You can see the average of five simulations with different mutation rates.
+
+<img src="/src/resource_allocation/Graphs/mutation_00.png" alt="Mutation rate 0.0" title="Mutation rate 0.0">
+
+<img src="/src/resource_allocation/Graphs/mutation_04.png" alt="Mutation rate 0.4" title="Mutation rate 0.4">
+
+<img src="/src/resource_allocation/Graphs/mutation_07.png" alt="Mutation rate 0.7" title="Mutation rate 0.7">
+
 ### Sample Results
 ```
 Generation: 0
-Best allocation: [12, 14, 7]
-Cost: 41.0
-Profit: 115.5
-Penalty: 5.0
 Fitness: 78.8780487804878
-
 Generation: 1
-Best allocation: [12, 14, 16]
-Cost: 59.0
-Profit: 162.0
-Penalty: 10.0
 Fitness: 87.86440677966101
-
 Generation: 2
-Best allocation: [12, 14, 16]
-Cost: 59.0
-Profit: 162.0
-Penalty: 10.0
 Fitness: 87.86440677966101
-...
-...
 ...
 Generation: 98
-Best allocation: [12, 14, 16]
-Cost: 59.0
-Profit: 162.0
-Penalty: 10.0
 Fitness: 87.86440677966101
-
 Generation: 99
-Best allocation: [12, 14, 16]
-Cost: 59.0
-Profit: 162.0
-Penalty: 10.0
 Fitness: 87.86440677966101
-
 Generation: 100
-Best allocation: [12, 14, 16]
-Cost: 59.0
-Profit: 162.0
-Penalty: 10.0
 Fitness: 87.86440677966101
 ```
 
